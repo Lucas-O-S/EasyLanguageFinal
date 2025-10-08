@@ -1,11 +1,11 @@
-grammar EasyLanguage;
+grammar Language;
 
 @header{
-	import br.edu.cefsa.compiler.datastructures.EasySymbol;
-	import br.edu.cefsa.compiler.datastructures.EasyVariable;
-	import br.edu.cefsa.compiler.datastructures.EasySymbolTable;
-	import br.edu.cefsa.compiler.exceptions.EasySemanticException;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.EasyProgram;
+	import br.edu.cefsa.compiler.datastructures.Symbol;
+	import br.edu.cefsa.compiler.datastructures.Variable;
+	import br.edu.cefsa.compiler.datastructures.SymbolTable;
+	import br.edu.cefsa.compiler.exceptions.SemanticException;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
@@ -19,9 +19,9 @@ grammar EasyLanguage;
 	private int _tipo;
 	private String _varName;
 	private String _varValue;
-	private EasySymbolTable symbolTable = new EasySymbolTable();
-	private EasySymbol symbol;
-	private EasyProgram program = new EasyProgram();
+	private SymbolTable symbolTable = new SymbolTable();
+	private Symbol symbol;
+	private Program program = new Program();
 	private ArrayList<AbstractCommand> curThread;
 	private Stack<ArrayList<AbstractCommand>> stack = new Stack<ArrayList<AbstractCommand>>();
 	private String _readID;
@@ -34,7 +34,7 @@ grammar EasyLanguage;
 	
 	public void verificaID(String id){
 		if (!symbolTable.exists(id)){
-			throw new EasySemanticException("Symbol "+id+" not declared");
+			throw new SemanticException("Symbol "+id+" not declared");
 		}
 	}
 	
@@ -63,32 +63,32 @@ decl    :  (declaravar)+
 declaravar :  tipo ID  {
 	                  _varName = _input.LT(-1).getText();
 	                  _varValue = null;
-	                  symbol = new EasyVariable(_varName, _tipo, _varValue);
+	                  symbol = new Variable(_varName, _tipo, _varValue);
 	                  if (!symbolTable.exists(_varName)){
 	                     symbolTable.add(symbol);	
 	                  }
 	                  else{
-	                  	 throw new EasySemanticException("Symbol "+_varName+" already declared");
+	                  	 throw new SemanticException("Symbol "+_varName+" already declared");
 	                  }
                     } 
               (  VIR 
               	 ID {
 	                  _varName = _input.LT(-1).getText();
 	                  _varValue = null;
-	                  symbol = new EasyVariable(_varName, _tipo, _varValue);
+	                  symbol = new Variable(_varName, _tipo, _varValue);
 	                  if (!symbolTable.exists(_varName)){
 	                     symbolTable.add(symbol);	
 	                  }
 	                  else{
-	                  	 throw new EasySemanticException("Symbol "+_varName+" already declared");
+	                  	 throw new SemanticException("Symbol "+_varName+" already declared");
 	                  }
                     }
               )* 
                SC
            ;
            
-tipo       : 'numero' { _tipo = EasyVariable.NUMBER;  }
-           | 'texto'  { _tipo = EasyVariable.TEXT;  }
+tipo       : 'numero' { _tipo = Variable.NUMBER;  }
+           | 'texto'  { _tipo = Variable.TEXT;  }
            ;
         
 bloco	: { curThread = new ArrayList<AbstractCommand>(); 
@@ -102,6 +102,8 @@ cmd		:  cmdleitura
  		|  cmdescrita 
  		|  cmdattrib
  		|  cmdselecao  
+		|  cmdwhile
+		|  cmdfor 
 		;
 		
 cmdleitura	: 'leia' AP
@@ -112,7 +114,7 @@ cmdleitura	: 'leia' AP
                      SC 
                      
               {
-              	EasyVariable var = (EasyVariable)symbolTable.get(_readID);
+              	Variable var = (Variable)symbolTable.get(_readID);
               	CommandLeitura cmd = new CommandLeitura(_readID, var);
               	stack.peek().add(cmd);
               }   
@@ -174,6 +176,44 @@ cmdselecao  :  'se' AP
                    )?
             ;
 			
+cmdfor : 
+	'para' ID 'de' expr 'ate' expr
+		'faca' ACH
+			{
+				curThread = new ArrayList<AbstractCommand>();
+				stack.push(curThread);
+			}
+			(cmd)+
+		FCH
+		{
+			ArrayList<AbstractCommand> listaFor = stack.pop();
+			CommandFor cmd = new CommandFor(_input.LT(-8).getText(), /* variável */ 
+			_input.LT(-6).getText(), /* início */
+			_input.LT(-4).getText(), /* fim */
+			listaFor);
+			stack.peek().add(cmd);
+		}
+	;
+
+cmdwhile :
+	'enquanto' AP expr FP ACH
+	{
+		curThread = new ArrayList<AbstractCommand>();
+		stack.push(curThread);
+		(cmd)+
+	}
+	
+	FCH
+	{
+		ArrayList<AbstractCommand> listaWhile = stack.pop();
+		CommandWhile cmd = new CommandWhile(_exprContent, listaWhile);
+		stack.peek().add(cmd);
+
+	}
+
+
+;
+			
 expr        :  termo ( 
                         OP  { _exprContent += _input.LT(-1).getText();}
                         termo
@@ -226,3 +266,4 @@ NUMBER	: [0-9]+ ('.' [0-9]+)?
 	;
 		
 WS	: (' ' | '\t' | '\n' | '\r') -> skip;
+

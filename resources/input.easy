@@ -1,6 +1,6 @@
 programa
 
-  numero a, b;
+  numero a, b, c;
   texto  t1;
 
   leia(a);
