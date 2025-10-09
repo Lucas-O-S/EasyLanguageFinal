@@ -1,6 +1,6 @@
 package br.edu.cefsa.compiler.datastructures;
 
-public class EasyVariable extends EasySymbol {
+public class Variable extends Symbol {
 
     public static final int NUMBER = 0;
     public static final int TEXT = 1;
@@ -8,7 +8,7 @@ public class EasyVariable extends EasySymbol {
     private int type;
     private String value;
 
-    public EasyVariable(String name, int type, String value) {
+    public Variable(String name, int type, String value) {
         super(name);
         this.type = type;
         this.value = value;

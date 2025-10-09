@@ -1,11 +1,11 @@
 // Generated from EasyLanguage.g4 by ANTLR 4.12.0
 package br.edu.cefsa.compiler.parser;
 
-	import br.edu.cefsa.compiler.datastructures.EasySymbol;
-	import br.edu.cefsa.compiler.datastructures.EasyVariable;
-	import br.edu.cefsa.compiler.datastructures.EasySymbolTable;
-	import br.edu.cefsa.compiler.exceptions.EasySemanticException;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.EasyProgram;
+	import br.edu.cefsa.compiler.datastructures.Symbol;
+	import br.edu.cefsa.compiler.datastructures.Variable;
+	import br.edu.cefsa.compiler.datastructures.SymbolTable;
+	import br.edu.cefsa.compiler.exceptions.SemanticException;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
@@ -146,6 +146,30 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCmdselecao(EasyLanguageParser.CmdselecaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCmdfor(EasyLanguageParser.CmdforContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmdfor(EasyLanguageParser.CmdforContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCmdwhile(EasyLanguageParser.CmdwhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmdwhile(EasyLanguageParser.CmdwhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

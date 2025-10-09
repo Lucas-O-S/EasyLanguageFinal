@@ -1,11 +1,11 @@
 // Generated from EasyLanguage.g4 by ANTLR 4.12.0
 package br.edu.cefsa.compiler.parser;
 
-	import br.edu.cefsa.compiler.datastructures.EasySymbol;
-	import br.edu.cefsa.compiler.datastructures.EasyVariable;
-	import br.edu.cefsa.compiler.datastructures.EasySymbolTable;
-	import br.edu.cefsa.compiler.exceptions.EasySemanticException;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.EasyProgram;
+	import br.edu.cefsa.compiler.datastructures.Symbol;
+	import br.edu.cefsa.compiler.datastructures.Variable;
+	import br.edu.cefsa.compiler.datastructures.SymbolTable;
+	import br.edu.cefsa.compiler.exceptions.SemanticException;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
@@ -121,6 +121,26 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmdselecao(EasyLanguageParser.CmdselecaoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdfor}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdfor(EasyLanguageParser.CmdforContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdfor}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdfor(EasyLanguageParser.CmdforContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdwhile}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdwhile(EasyLanguageParser.CmdwhileContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdwhile}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdwhile(EasyLanguageParser.CmdwhileContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#expr}.
 	 * @param ctx the parse tree

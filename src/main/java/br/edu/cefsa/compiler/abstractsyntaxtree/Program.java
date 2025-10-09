@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-import br.edu.cefsa.compiler.datastructures.EasySymbol;
-import br.edu.cefsa.compiler.datastructures.EasySymbolTable;
+import br.edu.cefsa.compiler.datastructures.Symbol;
+import br.edu.cefsa.compiler.datastructures.SymbolTable;
 
-public class EasyProgram {
+public class Program {
 
-    private EasySymbolTable varTable;
+    private SymbolTable varTable;
     private ArrayList<AbstractCommand> comandos;
     private String programName;
 
@@ -19,7 +19,7 @@ public class EasyProgram {
         str.append("public class MainClass{ \n");
         str.append(" public static void main(String args[]){\n ");
         str.append("  Scanner _key = new Scanner(System.in);\n");
-        for (EasySymbol symbol : varTable.getAll()) {
+        for (Symbol symbol : varTable.getAll()) {
             str.append(symbol.generateJavaCode() + "\n");
         }
         for (AbstractCommand command : comandos) {
@@ -37,11 +37,11 @@ public class EasyProgram {
         }
     }
 
-    public EasySymbolTable getVarTable() {
+    public SymbolTable getVarTable() {
         return varTable;
     }
 
-    public void setVarTable(EasySymbolTable varTable) {
+    public void setVarTable(SymbolTable varTable) {
         this.varTable = varTable;
     }
 

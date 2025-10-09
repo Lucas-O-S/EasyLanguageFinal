@@ -4,7 +4,7 @@ public class MainClass{
    Scanner _key = new Scanner(System.in);
 double  a;
 double  b;
-double  c;
+double  x;
 String  t1;
 a= _key.nextDouble();
 b= _key.nextDouble();

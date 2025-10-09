@@ -1,4 +1,4 @@
-grammar Language;
+grammar EasyLanguage;
 
 @header{
 	import br.edu.cefsa.compiler.datastructures.Symbol;
@@ -195,24 +195,22 @@ cmdfor :
 		}
 	;
 
+
 cmdwhile :
-	'enquanto' AP expr FP ACH
+	'enquanto' AP { _exprDecision = ""; } expr FP ACH
 	{
 		curThread = new ArrayList<AbstractCommand>();
 		stack.push(curThread);
-		(cmd)+
 	}
-	
+	(cmd)+
 	FCH
 	{
 		ArrayList<AbstractCommand> listaWhile = stack.pop();
-		CommandWhile cmd = new CommandWhile(_exprContent, listaWhile);
+		CommandWhile cmd = new CommandWhile(_exprDecision, listaWhile);
 		stack.peek().add(cmd);
-
 	}
-
-
 ;
+
 			
 expr        :  termo ( 
                         OP  { _exprContent += _input.LT(-1).getText();}

@@ -1,9 +1,11 @@
 package br.edu.cefsa.compiler.main;
 
-import br.edu.cefsa.compiler.exceptions.EasySemanticException;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+
+import br.edu.cefsa.compiler.exceptions.SemanticException;
 import br.edu.cefsa.compiler.parser.EasyLanguageLexer;
 import br.edu.cefsa.compiler.parser.EasyLanguageParser;
-import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 
@@ -41,7 +43,7 @@ public class MainClass {
 
             parser.generateCode();
 
-        } catch (EasySemanticException ex) {
+        } catch (SemanticException ex) {
             System.err.println("Semantic error - " + ex.getMessage());
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -1,13 +1,13 @@
 package br.edu.cefsa.compiler.abstractsyntaxtree;
 
-import br.edu.cefsa.compiler.datastructures.EasyVariable;
+import br.edu.cefsa.compiler.datastructures.Variable;
 
 public class CommandLeitura extends AbstractCommand {
 
     private String id;
-    private EasyVariable var;
+    private Variable var;
 
-    public CommandLeitura(String id, EasyVariable var) {
+    public CommandLeitura(String id, Variable var) {
         this.id = id;
         this.var = var;
     }
@@ -15,7 +15,7 @@ public class CommandLeitura extends AbstractCommand {
     @Override
     public String generateJavaCode() {
         // TODO Auto-generated method stub
-        return id + "= _key." + (var.getType() == EasyVariable.NUMBER ? "nextDouble();" : "nextLine();");
+        return id + "= _key." + (var.getType() == Variable.NUMBER ? "nextDouble();" : "nextLine();");
     }
 
     @Override

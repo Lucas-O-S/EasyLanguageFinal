@@ -1,12 +1,12 @@
 package br.edu.cefsa.compiler.datastructures;
 
-public abstract class EasySymbol {
+public abstract class Symbol {
 
     protected String name;
 
     public abstract String generateJavaCode();
 
-    public EasySymbol(String name) {
+    public Symbol(String name) {
         this.name = name;
 
     }

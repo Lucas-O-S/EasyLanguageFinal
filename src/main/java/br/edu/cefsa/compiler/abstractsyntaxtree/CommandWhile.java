@@ -14,7 +14,7 @@ public class CommandWhile extends AbstractCommand {
     @Override
     public String generateJavaCode(){
         StringBuilder str = new StringBuilder();
-        str.append("While(" + condition + ") {\n");
+        str.append("while (" + condition + ") {\n");
         for(AbstractCommand cmd : loopCommand){
             str.append(cmd.generateJavaCode());
         }
@@ -22,5 +22,8 @@ public class CommandWhile extends AbstractCommand {
         return  str.toString();
     }
     
-    
+    @Override
+    public String toString() {
+        return "CommandWhile[condition=" + condition + "]";
+    }
 }

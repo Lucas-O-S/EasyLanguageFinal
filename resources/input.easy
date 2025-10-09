@@ -1,18 +1,25 @@
 programa
 
-  numero a, b, c;
-  texto  t1;
+    numero i, soma;
+    texto nome;
 
-  leia(a);
-  leia(b);
-  
-  a = 1 + 2 * 3 / b;
-  
-  se ( a > b ) {
-     escreva (a);
-  }
-  senao {
-     escreva (b);
-  }
-  
+    leia(nome);
+    escreva(nome);
+
+    soma = 0;
+
+    escreva(soma);
+
+    enquanto (soma < 20) {
+        soma = soma + 2;
+        escreva(soma);
+    }
+
+    se (soma > 20) {
+        escreva(soma);
+    }
+    senao {
+        escreva(0);
+    }
+
 fimprog;
