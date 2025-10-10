@@ -178,7 +178,8 @@ cmdselecao  :  'se' AP
                    )?
             ;
 			
-cmdfor : 
+cmdfor :
+
 	'para' ID 'de' expr 'ate' expr
 		'faca' ACH
 			{
@@ -187,33 +188,48 @@ cmdfor :
 			}
 			(cmd)+
 		FCH
-		{
-			ArrayList<AbstractCommand> listaFor = stack.pop();
+		   {
+        ArrayList<AbstractCommand> listaFor = stack.pop();
+
 			CommandFor cmd = new CommandFor(_input.LT(-8).getText(), /* variável */ 
 			_input.LT(-6).getText(), /* início */
 			_input.LT(-4).getText(), /* fim */
 			listaFor);
-			stack.peek().add(cmd);
-		}
+
+        stack.peek().add(cmd);
+    	}
 	;
 
 
 cmdwhile :
-	'enquanto' AP { _exprDecision = ""; } expr FP ACH
-	{
-		curThread = new ArrayList<AbstractCommand>();
-		stack.push(curThread);
-	}
-	(cmd)+
-	FCH
-	{
-		ArrayList<AbstractCommand> listaWhile = stack.pop();
-		CommandWhile cmd = new CommandWhile(_exprDecision, listaWhile);
-		stack.peek().add(cmd);
-	}
+    'enquanto' AP 
+        { 
+			_exprDecision = ""; 
+			_exprContent = "";
+		}
+		 
+        comp { _exprDecision = _exprContent; } 
+    FP ACH
+        {
+            curThread = new ArrayList<AbstractCommand>();
+            stack.push(curThread);
+        }
+        (cmd)+
+    FCH
+        {
+            ArrayList<AbstractCommand> listaWhile = stack.pop();
+            CommandWhile cmd = new CommandWhile(_exprDecision, listaWhile);
+            stack.peek().add(cmd);
+        }
 ;
 
 			
+comp        :  termo ( 
+                        OPREL  { _exprContent += _input.LT(-1).getText();}
+                        termo
+	             )*
+            ;
+
 expr        :  termo ( 
                         OP  { _exprContent += _input.LT(-1).getText();}
                         termo
@@ -256,7 +272,7 @@ FCH  : '}'
      ;
 	 
 	 
-OPREL : '>' | '<' | '>=' | '<=' | '==' | '!='
+OPREL : '>=' | '<=' | '==' | '!=' | '>' | '<' 
       ;
       
 ID	: [a-z] ([a-z] | [A-Z] | [0-9])*

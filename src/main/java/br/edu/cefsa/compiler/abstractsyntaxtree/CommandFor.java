@@ -5,31 +5,18 @@ import java.util.ArrayList;
 public class CommandFor extends  AbstractCommand{
 
     private String varName;
-    private String startExpr;
-    private String endExpr;
-    private String comparator;
-    private String leftCondition;
-    private String rightCondition;
+    private String condition;
     private String nextIteration;
     private ArrayList<AbstractCommand> loopCommands;
 
     public CommandFor(
             String varName,
-            String startExpr,
-            String endExpr,
-            String stopExpr,
-            String leftCondition,
-            String rightCondition,
-            String comparator,
+            String condition,
             String nextIteration,
             ArrayList<AbstractCommand>loopCommands
         ) {
         this.varName = varName;
-        this.startExpr = startExpr;
-        this.endExpr = endExpr;
-        this.comparator = comparator;
-        this.leftCondition = leftCondition;
-        this.rightCondition = rightCondition;
+        this.condition = condition;
         this.nextIteration = nextIteration;
         this.loopCommands = loopCommands;
 
@@ -38,7 +25,7 @@ public class CommandFor extends  AbstractCommand{
     @Override
     public String generateJavaCode() {
         StringBuilder str = new StringBuilder();
-        str.append("for ( int " + varName + " = " + startExpr + " ; " + leftCondition + comparator + " " + rightCondition + " " + endExpr + " ; " + " "  + nextIteration + ") \n {");
+        str.append("for ( " + varName + " ; " + condition + " ; "  + nextIteration + ") \n {");
 
         for(AbstractCommand cmd : loopCommands){
             str.append(cmd.generateJavaCode());
@@ -52,7 +39,7 @@ public class CommandFor extends  AbstractCommand{
 
     @Override
     public String toString() {
-        return "CommandFor[var=" + varName + ", start=" + startExpr + ", end=" + endExpr + "]";
+        return "CommandFor[var=" + varName + ", start=" + condition + ", end=" + nextIteration + "]";
     }
 
 

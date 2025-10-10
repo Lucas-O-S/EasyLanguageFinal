@@ -9,17 +9,11 @@ programa
     soma = 0;
 
     escreva(soma);
-
-    enquanto (soma < 20) {
+    
+    enquanto (soma > 20) {
         soma = soma + 2;
         escreva(soma);
     }
 
-    se (soma > 20) {
-        escreva(soma);
-    }
-    senao {
-        escreva(0);
-    }
 
 fimprog;

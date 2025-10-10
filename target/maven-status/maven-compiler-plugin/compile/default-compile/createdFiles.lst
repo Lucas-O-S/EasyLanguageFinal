@@ -1,0 +1,16 @@
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdforContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$DeclaravarContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$ExprContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageListener.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$DeclContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdleituraContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$TipoContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$TermoContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdescritaContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdwhileContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$BlocoContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdselecaoContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$ProgContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdContext.class
+br/edu/cefsa/compiler/parser/EasyLanguageParser$CmdattribContext.class
