@@ -11,6 +11,8 @@ package br.edu.cefsa.compiler.parser;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
 	import java.util.ArrayList;
 	import java.util.Stack;
 

@@ -11,7 +11,8 @@ package br.edu.cefsa.compiler.parser;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
 	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
-
+	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
+	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
 	import java.util.ArrayList;
 	import java.util.Stack;
 
@@ -20,13 +21,9 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
-
 import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
-
-import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
-import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class EasyLanguageParser extends Parser {
@@ -956,7 +953,7 @@ public class EasyLanguageParser extends Parser {
 						CommandFor cmd = new CommandFor(_input.LT(-8).getText(), /* variável */ 
 						_input.LT(-6).getText(), /* início */
 						_input.LT(-4).getText(), /* fim */
-						_exprContent, _exprContent, _exprContent, _exprContent, _exprContent, listaFor);
+						listaFor);
 						stack.peek().add(cmd);
 					
 			}
