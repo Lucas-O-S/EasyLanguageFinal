@@ -18,7 +18,7 @@ public class CommandWhile extends AbstractCommand {
         for(AbstractCommand cmd : loopCommand){
             str.append(cmd.generateJavaCode());
         }
-        str.append("}\n");
+        str.append("\n}\n");
         return  str.toString();
     }
     

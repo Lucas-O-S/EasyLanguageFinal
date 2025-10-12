@@ -138,14 +138,16 @@ cmdescrita	: 'escreva'
 cmdattrib	:  ID { verificaID(_input.LT(-1).getText());
                     _exprID = _input.LT(-1).getText();
                    } 
-               ATTR { _exprContent = ""; } 
-               expr 
+               ATTR 
+               e=expr 
                SC
                {
+               	 _exprContent = $e.text;
                	 CommandAtribuicao cmd = new CommandAtribuicao(_exprID, _exprContent);
                	 stack.peek().add(cmd);
                }
 			;
+
 			
 			
 cmdselecao  :  'se' AP
@@ -177,38 +179,31 @@ cmdselecao  :  'se' AP
                    	}
                    )?
             ;
-			
-cmdfor :
+cmdfor
+locals [String stepExpr = "1"]
+    : 'para' ID 'de' e1=expr op=OPREL e2=expr ('passo' e3=expr { $stepExpr = $e3.text; })? 'faca' ACH
+        {
+            curThread = new ArrayList<AbstractCommand>();
+            stack.push(curThread);
+        }
+        (cmd)+
+      FCH
+        {
+            ArrayList<AbstractCommand> listaFor = stack.pop();
+            String varName = $ID.text;
+            String startExpr = $e1.text;
+            String operator = $op.text;
+            String endExpr = $e2.text;
 
-	'para' ID 'de' expr 'ate' expr
-		'faca' ACH
-			{
-				curThread = new ArrayList<AbstractCommand>();
-				stack.push(curThread);
-			}
-			(cmd)+
-		FCH
-		   {
-        ArrayList<AbstractCommand> listaFor = stack.pop();
-
-			CommandFor cmd = new CommandFor(_input.LT(-8).getText(), /* variável */ 
-			_input.LT(-6).getText(), /* início */
-			_input.LT(-4).getText(), /* fim */
-			listaFor);
-
-        stack.peek().add(cmd);
-    	}
-	;
+            CommandFor cmd = new CommandFor(varName, startExpr, operator, endExpr, $stepExpr, listaFor);
+            stack.peek().add(cmd);
+        }
+    ;
 
 
 cmdwhile :
     'enquanto' AP 
-        { 
-			_exprDecision = ""; 
-			_exprContent = "";
-		}
-		 
-        comp { _exprDecision = _exprContent; } 
+        c=comp { _exprDecision = $c.text; } 
     FP ACH
         {
             curThread = new ArrayList<AbstractCommand>();
@@ -224,27 +219,21 @@ cmdwhile :
 ;
 
 			
-comp        :  termo ( 
-                        OPREL  { _exprContent += _input.LT(-1).getText();}
-                        termo
-	             )*
-            ;
+comp returns [String text]
+    : t1=termo { $text = $t1.text; }
+      ( op=OPREL t2=termo { $text += $op.text + $t2.text; } )*
+    ;
 
-expr        :  termo ( 
-                        OP  { _exprContent += _input.LT(-1).getText();}
-                        termo
-	             )*
-            ;
-			
-termo	    : ID { verificaID(_input.LT(-1).getText());
-	               _exprContent += _input.LT(-1).getText();
-                 } 
-            | 
-              NUMBER
-              {
-              	_exprContent += _input.LT(-1).getText();
-              }
-			;
+expr returns [String text]
+    : t1=termo { $text = $t1.text; }
+      ( op=OP t2=termo { $text += $op.text + $t2.text; } )*
+    ;
+
+termo returns [String text]
+    : ID { verificaID($ID.text); $text = $ID.text; }
+    | NUMBER { $text = $NUMBER.text; }
+    ;
+
 			
 	
 AP	: '('

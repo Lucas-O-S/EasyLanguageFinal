@@ -5,30 +5,44 @@ import java.util.ArrayList;
 public class CommandFor extends  AbstractCommand{
 
     private String varName;
-    private String condition;
-    private String nextIteration;
+    private String startExpr;
+    private String operator;
+    private String endExpr;
+    private String stepExpr;
     private ArrayList<AbstractCommand> loopCommands;
 
     public CommandFor(
             String varName,
-            String condition,
-            String nextIteration,
+            String startExpr,
+            String operator,
+            String endExpr,
+            String stepExpr,
             ArrayList<AbstractCommand>loopCommands
         ) {
         this.varName = varName;
-        this.condition = condition;
-        this.nextIteration = nextIteration;
+        this.startExpr = startExpr;
+        this.operator = operator;
+        this.endExpr = endExpr;
+        this.stepExpr = stepExpr;
         this.loopCommands = loopCommands;
 
     }
 
     @Override
     public String generateJavaCode() {
+
         StringBuilder str = new StringBuilder();
-        str.append("for ( " + varName + " ; " + condition + " ; "  + nextIteration + ") \n {");
+
+        boolean isDecreasing = operator.contains(">");
+
+        str.append("for ( " + varName + " = " + startExpr +  " ; " + 
+            varName + " " + operator +  " " + endExpr + " ; " +
+             varName + (isDecreasing ? " -= " : " += ") + stepExpr + ") {\n");
 
         for(AbstractCommand cmd : loopCommands){
-            str.append(cmd.generateJavaCode());
+            
+            str.append("    " + cmd.generateJavaCode());
+        
         }
 
         str.append("} \n");
@@ -39,7 +53,11 @@ public class CommandFor extends  AbstractCommand{
 
     @Override
     public String toString() {
-        return "CommandFor[var=" + varName + ", start=" + condition + ", end=" + nextIteration + "]";
+        return "CommandFor[var=" + varName +
+                ", start=" + startExpr +
+                ", op=" + operator +
+                ", end=" + endExpr +
+                ", step=" + stepExpr + "]";
     }
 
 

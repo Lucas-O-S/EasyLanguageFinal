@@ -9,7 +9,14 @@ nome= _key.nextLine();
 System.out.println(nome);
 soma = 0;
 System.out.println(soma);
-for ( i ; escreva ; soma) 
- {soma = soma+i;System.out.println(soma);} 
+for ( i = 1 ; i <= 10 ; i += 2) {
+    System.out.println(i);    soma = soma+i;} 
+
+for ( i = 10 ; i >= 0 ; i -= 1) {
+    System.out.println(i);} 
+
+while (soma<20) {
+soma = soma+2;System.out.println(soma);
+}
 
  }}
