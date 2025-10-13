@@ -189,6 +189,18 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCondicao(EasyLanguageParser.CondicaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCondicao(EasyLanguageParser.CondicaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExpr(EasyLanguageParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}

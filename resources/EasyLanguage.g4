@@ -181,7 +181,7 @@ cmdselecao  :  'se' AP
             ;
 cmdfor
 locals [String stepExpr = "1"]
-    : 'para' ID 'de' e1=expr op=OPREL e2=expr ('passo' e3=expr { $stepExpr = $e3.text; })? 'faca' ACH
+    : 'para' AP ID 'de' e1=expr op=OPREL e2=expr ('passo' e3=expr { $stepExpr = $e3.text; })? FP 'faca' ACH
         {
             curThread = new ArrayList<AbstractCommand>();
             stack.push(curThread);
@@ -219,10 +219,20 @@ cmdwhile :
 ;
 
 			
-comp returns [String text]
-    : t1=termo { $text = $t1.text; }
-      ( op=OPREL t2=termo { $text += $op.text + $t2.text; } )*
-    ;
+comp returns [String text] :
+	c1=condicao {$text = $c1.text;}
+		( op = (E | OU) c2=condicao {
+			String opJava = $op.getText().equals("ou") ? "||" : "&&";
+			$text += " " + opJava + " " + $c2.text;
+		
+		} )*
+	;
+
+condicao returns [String text] : t1=termo op=OPREL t2=termo 
+	{
+		$text = $t1.text + $op.text + $t2.text;
+	};
+
 
 expr returns [String text]
     : t1=termo { $text = $t1.text; }
@@ -259,6 +269,14 @@ ACH  : '{'
      
 FCH  : '}'
      ;
+
+E : 'ou'
+	;
+
+OU : 'e'
+	;
+	
+	
 	 
 	 
 OPREL : '>=' | '<=' | '==' | '!=' | '>' | '<' 

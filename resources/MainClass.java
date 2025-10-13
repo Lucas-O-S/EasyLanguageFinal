@@ -15,7 +15,7 @@ for ( i = 1 ; i <= 10 ; i += 2) {
 for ( i = 10 ; i >= 0 ; i -= 1) {
     System.out.println(i);} 
 
-while (soma<20) {
+while (soma<20 && soma<15) {
 soma = soma+2;System.out.println(soma);
 }
 

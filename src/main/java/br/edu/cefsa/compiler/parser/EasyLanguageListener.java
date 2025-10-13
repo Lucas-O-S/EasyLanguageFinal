@@ -154,6 +154,16 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 */
 	void exitComp(EasyLanguageParser.CompContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#condicao}.
+	 * @param ctx the parse tree
+	 */
+	void enterCondicao(EasyLanguageParser.CondicaoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#condicao}.
+	 * @param ctx the parse tree
+	 */
+	void exitCondicao(EasyLanguageParser.CondicaoContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#expr}.
 	 * @param ctx the parse tree
 	 */

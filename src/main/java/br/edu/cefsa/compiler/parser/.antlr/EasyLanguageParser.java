@@ -1,5 +1,4 @@
-// Generated from EasyLanguage.g4 by ANTLR 4.12.0
-package br.edu.cefsa.compiler.parser;
+// Generated from /Users/grupotaak/Downloads/ProgamacaoPessoal/EasyLanguageFinal/src/main/java/br/edu/cefsa/compiler/parser/EasyLanguage.g4 by ANTLR 4.13.1
 
 	import br.edu.cefsa.compiler.datastructures.Symbol;
 	import br.edu.cefsa.compiler.datastructures.Variable;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
 public class EasyLanguageParser extends Parser {
-	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -161,14 +160,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_prog; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterProg(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitProg(this);
-		}
 	}
 
 	public final ProgContext prog() throws RecognitionException {
@@ -214,14 +205,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_decl; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterDecl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitDecl(this);
-		}
 	}
 
 	public final DeclContext decl() throws RecognitionException {
@@ -276,14 +259,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_declaravar; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterDeclaravar(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitDeclaravar(this);
-		}
 	}
 
 	public final DeclaravarContext declaravar() throws RecognitionException {
@@ -356,14 +331,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tipo; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterTipo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitTipo(this);
-		}
 	}
 
 	public final TipoContext tipo() throws RecognitionException {
@@ -416,14 +383,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_bloco; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterBloco(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitBloco(this);
-		}
 	}
 
 	public final BlocoContext bloco() throws RecognitionException {
@@ -487,14 +446,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmd; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmd(this);
-		}
 	}
 
 	public final CmdContext cmd() throws RecognitionException {
@@ -571,14 +522,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdleitura; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdleitura(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdleitura(this);
-		}
 	}
 
 	public final CmdleituraContext cmdleitura() throws RecognitionException {
@@ -628,14 +571,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdescrita; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdescrita(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdescrita(this);
-		}
 	}
 
 	public final CmdescritaContext cmdescrita() throws RecognitionException {
@@ -687,14 +622,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdattrib; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdattrib(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdattrib(this);
-		}
 	}
 
 	public final CmdattribContext cmdattrib() throws RecognitionException {
@@ -760,14 +687,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdselecao; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdselecao(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdselecao(this);
-		}
 	}
 
 	public final CmdselecaoContext cmdselecao() throws RecognitionException {
@@ -906,14 +825,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdfor; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdfor(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdfor(this);
-		}
 	}
 
 	public final CmdforContext cmdfor() throws RecognitionException {
@@ -1019,14 +930,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_cmdwhile; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCmdwhile(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCmdwhile(this);
-		}
 	}
 
 	public final CmdwhileContext cmdwhile() throws RecognitionException {
@@ -1109,14 +1012,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_comp; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterComp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitComp(this);
-		}
 	}
 
 	public final CompContext comp() throws RecognitionException {
@@ -1189,14 +1084,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_condicao; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterCondicao(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitCondicao(this);
-		}
 	}
 
 	public final CondicaoContext condicao() throws RecognitionException {
@@ -1247,14 +1134,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expr; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitExpr(this);
-		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -1308,14 +1187,6 @@ public class EasyLanguageParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_termo; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).enterTermo(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof EasyLanguageListener ) ((EasyLanguageListener)listener).exitTermo(this);
-		}
 	}
 
 	public final TermoContext termo() throws RecognitionException {
