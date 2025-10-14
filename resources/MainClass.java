@@ -3,11 +3,22 @@ public class MainClass{
  public static void main(String args[]){
    Scanner _key = new Scanner(System.in);
 
-	boolean  flag;
+	int a;
 
-	double  soma;
+	boolean flag;
 
-	double  i;
+	double soma;
+
+	char v;
+
+	double i;
+
+	String nome;
+	a = 2;
+	v = 'c';
+	nome = _key.nextLine();
+	System.out.println(nome);
+
 	soma = 0;
 	flag = true;
 
@@ -19,7 +30,7 @@ public class MainClass{
 	}
 
 
-	if (soma<100 && flag==true) 
+	if (soma<100 && !flag==true) 
 	{
 		System.out.println(soma);
 

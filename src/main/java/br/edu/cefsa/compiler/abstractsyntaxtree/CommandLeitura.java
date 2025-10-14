@@ -12,11 +12,26 @@ public class CommandLeitura extends AbstractCommand {
         this.var = var;
     }
 
-    @Override
-    public String generateJavaCode() {
-        // TODO Auto-generated method stub
-        return "\t\n"+ id + "= _key." + (var.getType() == Variable.NUMBER ? "nextDouble();" : "nextLine();");
+@Override
+public String generateJavaCode() {
+    String inputCode;
+
+    switch (var.getType()) {
+        case NUMBER:
+        case INTEGER:
+            inputCode = "_key.nextDouble();";
+            break;
+        case BOOLEAN:
+        case TEXT:
+        case CHAR:
+        default:
+            inputCode = "_key.nextLine();";
+            break;
     }
+
+    return "\t" + id + " = " + inputCode;
+}
+
 
     @Override
     public String toString() {

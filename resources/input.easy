@@ -1,22 +1,30 @@
 programa
 numero i, soma;
 booleano flag;
+texto nome;
+inteiro a;
+caractere v;
 
-soma = 0;
-flag = true;
+{
+    a = 2;
+    v = 'c';
+    leia(nome);
+    escreva(nome);
+    soma = 0;
+    flag = verdadeiro;
 
-para (i de 1 <= 10 passo 2) faca {
-    escreva(i);
+    para (i de 1 <= 10 passo 2) faca {
+        escreva(i);
+    }
+
+    se (soma < 100 e nao flag == true) {
+        escreva(soma);
+    } senao {
+        escreva(0);
+    }
+
+    enquanto (soma < 100 ou flag == falso) {
+        soma = soma + 10;
+    }
 }
-
-se (soma < 100 e flag == true) {
-    escreva(soma);
-} senao {
-    escreva(0);
-}
-
-enquanto (soma < 100 ou flag == false) {
-    soma = soma + 10;
-}
-
 fimprog;

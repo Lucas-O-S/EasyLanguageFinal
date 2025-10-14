@@ -3,12 +3,13 @@ package br.edu.cefsa.compiler.datastructures;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// Tabela de símbolos
 public class SymbolTable {
 
     private HashMap<String, Symbol> map;
 
     public SymbolTable() {
-        map = new HashMap<String, Symbol>();
+        map = new HashMap<>();
     }
 
     public void add(Symbol symbol) {
@@ -16,7 +17,7 @@ public class SymbolTable {
     }
 
     public boolean exists(String symbolName) {
-        return map.get(symbolName) != null;
+        return map.containsKey(symbolName);
     }
 
     public Symbol get(String symbolName) {
@@ -24,11 +25,6 @@ public class SymbolTable {
     }
 
     public ArrayList<Symbol> getAll() {
-        ArrayList<Symbol> lista = new ArrayList<Symbol>();
-        for (Symbol symbol : map.values()) {
-            lista.add(symbol);
-        }
-        return lista;
+        return new ArrayList<>(map.values());
     }
-
 }

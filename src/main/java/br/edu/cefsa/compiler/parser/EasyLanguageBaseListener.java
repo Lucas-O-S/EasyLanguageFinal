@@ -1,20 +1,20 @@
 // Generated from EasyLanguage.g4 by ANTLR 4.12.0
 package br.edu.cefsa.compiler.parser;
 
-	import br.edu.cefsa.compiler.datastructures.Symbol;
-	import br.edu.cefsa.compiler.datastructures.Variable;
-	import br.edu.cefsa.compiler.datastructures.SymbolTable;
-	import br.edu.cefsa.compiler.exceptions.SemanticException;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
-	import java.util.ArrayList;
-	import java.util.Stack;
+    import br.edu.cefsa.compiler.datastructures.Symbol;
+    import br.edu.cefsa.compiler.datastructures.Variable;
+    import br.edu.cefsa.compiler.datastructures.SymbolTable;
+    import br.edu.cefsa.compiler.exceptions.SemanticException;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import java.util.ArrayList;
+    import java.util.Stack;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -57,13 +57,25 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclaravar(EasyLanguageParser.DeclaravarContext ctx) { }
+	@Override public void enterIdList(EasyLanguageParser.IdListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclaravar(EasyLanguageParser.DeclaravarContext ctx) { }
+	@Override public void exitIdList(EasyLanguageParser.IdListContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDeclareItem(EasyLanguageParser.DeclareItemContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDeclareItem(EasyLanguageParser.DeclareItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

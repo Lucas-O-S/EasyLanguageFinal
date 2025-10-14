@@ -1,20 +1,20 @@
 // Generated from EasyLanguage.g4 by ANTLR 4.12.0
 package br.edu.cefsa.compiler.parser;
 
-	import br.edu.cefsa.compiler.datastructures.Symbol;
-	import br.edu.cefsa.compiler.datastructures.Variable;
-	import br.edu.cefsa.compiler.datastructures.SymbolTable;
-	import br.edu.cefsa.compiler.exceptions.SemanticException;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
-	import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
-	import java.util.ArrayList;
-	import java.util.Stack;
+    import br.edu.cefsa.compiler.datastructures.Symbol;
+    import br.edu.cefsa.compiler.datastructures.Variable;
+    import br.edu.cefsa.compiler.datastructures.SymbolTable;
+    import br.edu.cefsa.compiler.exceptions.SemanticException;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import java.util.ArrayList;
+    import java.util.Stack;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -44,15 +44,25 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 */
 	void exitDecl(EasyLanguageParser.DeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link EasyLanguageParser#declaravar}.
+	 * Enter a parse tree produced by {@link EasyLanguageParser#idList}.
 	 * @param ctx the parse tree
 	 */
-	void enterDeclaravar(EasyLanguageParser.DeclaravarContext ctx);
+	void enterIdList(EasyLanguageParser.IdListContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link EasyLanguageParser#declaravar}.
+	 * Exit a parse tree produced by {@link EasyLanguageParser#idList}.
 	 * @param ctx the parse tree
 	 */
-	void exitDeclaravar(EasyLanguageParser.DeclaravarContext ctx);
+	void exitIdList(EasyLanguageParser.IdListContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#declareItem}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclareItem(EasyLanguageParser.DeclareItemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#declareItem}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclareItem(EasyLanguageParser.DeclareItemContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#tipo}.
 	 * @param ctx the parse tree
