@@ -51,12 +51,18 @@ grammar EasyLanguage;
 	}
 }
 
-prog	: 'programa' decl bloco 'fimprog;'
-           {  program.setVarTable(symbolTable);
-              program.setComandos(stack.pop());
-           	 
-           } 
-	;
+prog
+    : 'programa'
+      {
+        curThread = new ArrayList<AbstractCommand>();
+        stack.push(curThread);
+      }
+      decl bloco 'fimprog;'
+      {
+        program.setVarTable(symbolTable);
+        program.setComandos(stack.pop());
+      }
+    ;
 		
 decl    :  (declaravar)+
         ;
@@ -91,6 +97,7 @@ declaravar :  tipo ID  {
            
 tipo       : 'numero' { _tipo = Variable.NUMBER;  }
            | 'texto'  { _tipo = Variable.TEXT;  }
+		   | 'booleano' {_tipo = Variable.BOOLEAN;}
            ;
         
 bloco	: { curThread = new ArrayList<AbstractCommand>(); 
@@ -122,21 +129,20 @@ cmdleitura	: 'leia' AP
               }   
 			;
 			
-cmdescrita	: 'escreva' 
-                 AP 
-                 ID { verificaID(_input.LT(-1).getText());
-	                  _writeID = _input.LT(-1).getText();
-                     } 
-                 FP 
-                 SC
-               {
-               	  CommandEscrita cmd = new CommandEscrita(_writeID);
-               	  stack.peek().add(cmd);
-               }
-			;
+cmdescrita
+    : 'escreva' 
+      AP 
+      e=expr 
+      FP 
+      SC
+      {
+          CommandEscrita cmd = new CommandEscrita($e.text);
+          stack.peek().add(cmd);
+      }
+    ;
 			
-cmdattrib	:  ID { verificaID(_input.LT(-1).getText());
-                    _exprID = _input.LT(-1).getText();
+cmdattrib	:  id=ID { verificaID($id.text); 
+                    _exprID =  $id.text;
                    } 
                ATTR 
                e=expr 
@@ -148,37 +154,28 @@ cmdattrib	:  ID { verificaID(_input.LT(-1).getText());
                }
 			;
 
-			
-			
-cmdselecao  :  'se' AP
-                    ID    { _exprDecision = _input.LT(-1).getText(); }
-                    OPREL { _exprDecision += _input.LT(-1).getText(); }
-                    (ID | NUMBER) {_exprDecision += _input.LT(-1).getText(); }
-                    FP 
-                    ACH 
-                    { curThread = new ArrayList<AbstractCommand>(); 
-                        stack.push(curThread);
-                    }
-                    (cmd)+ 
-                    FCH
-                    {
-                       listaTrue = stack.pop();	
-                    } 
-                   ('senao' 
-                   	ACH
-                   	{
-                   	 	curThread = new ArrayList<AbstractCommand>();
-                   	 	stack.push(curThread);
-                   	} 
-                   	(cmd+) 
-                   	FCH
-                   	{
-                   		listaFalse = stack.pop();
-                   		CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
-                   		stack.peek().add(cmd);
-                   	}
-                   )?
-            ;
+cmdselecao
+  : 'se' AP
+        c=comp { _exprDecision = $c.text; }
+    FP 
+    ACH 
+        { curThread = new ArrayList<AbstractCommand>(); stack.push(curThread); }
+        (cmd)+
+    FCH
+        { listaTrue = stack.pop(); } 
+    ('senao' ACH
+        { curThread = new ArrayList<AbstractCommand>(); stack.push(curThread); }
+        (cmd)+
+      FCH
+        {
+          listaFalse = stack.pop();
+          CommandDecisao cmd = new CommandDecisao(_exprDecision, listaTrue, listaFalse);
+          stack.peek().add(cmd);
+        }
+    )?
+  ;
+
+
 cmdfor
 locals [String stepExpr = "1"]
     : 'para' AP ID 'de' e1=expr op=OPREL e2=expr ('passo' e3=expr { $stepExpr = $e3.text; })? FP 'faca' ACH
@@ -218,15 +215,13 @@ cmdwhile :
         }
 ;
 
-			
 comp returns [String text] :
-	c1=condicao {$text = $c1.text;}
-		( op = (E | OU) c2=condicao {
-			String opJava = $op.getText().equals("ou") ? "||" : "&&";
-			$text += " " + opJava + " " + $c2.text;
-		
-		} )*
-	;
+    c1=condicao {$text = $c1.text;}
+    ( op = (E | OU) c2=condicao {
+        String opJava = $op.getText().equals("ou") ? "||" : "&&";
+        $text += " " + opJava + " " + $c2.text;
+    } )*
+;
 
 condicao returns [String text] : t1=termo op=OPREL t2=termo 
 	{
@@ -235,58 +230,47 @@ condicao returns [String text] : t1=termo op=OPREL t2=termo
 
 
 expr returns [String text]
-    : t1=termo { $text = $t1.text; }
-      ( op=OP t2=termo { $text += $op.text + $t2.text; } )*
+    : termo1=termo { $text = $termo1.text; }
+      (OP termo2=termo { $text += " " + $OP.text + " " + $termo2.text; })*
     ;
 
 termo returns [String text]
-    : ID { verificaID($ID.text); $text = $ID.text; }
-    | NUMBER { $text = $NUMBER.text; }
+    : ID        { $text = $ID.text; }
+    | NUMBER    { $text = $NUMBER.text; }
+    | BOOL      { $text = $BOOL.text; }
+    | AP e=expr FP { $text = "(" + $e.text + ")"; }
     ;
 
-			
 	
-AP	: '('
-	;
+AP	: '(';
 	
-FP	: ')'
-	;
+FP	: ')';
 	
-SC	: ';'
-	;
+SC	: ';';
 	
-OP	: '+' | '-' | '*' | '/'
-	;
+OP	: '+' | '-' | '*' | '/';
 	
-ATTR : '='
-     ;
+ATTR : '=';
 	 
-VIR  : ','
-     ;
+VIR  : ',';
      
-ACH  : '{'
-     ;
+ACH  : '{';
      
-FCH  : '}'
-     ;
+FCH  : '}';
 
-E : 'ou'
-	;
+E : 'e';
 
-OU : 'e'
-	;
-	
-	
+OU : 'ou';
+
+
+OPREL : '>=' | '<=' | '==' | '!=' | '>' | '<' ;
 	 
 	 
-OPREL : '>=' | '<=' | '==' | '!=' | '>' | '<' 
-      ;
+BOOL : 'verdadeiro' | 'falso' ;
       
-ID	: [a-z] ([a-z] | [A-Z] | [0-9])*
-	;
+ID	: [a-z] ([a-z] | [A-Z] | [0-9])*;
 	
-NUMBER	: [0-9]+ ('.' [0-9]+)?
-	;
+NUMBER	: [0-9]+ ('.' [0-9]+)?;
 		
 WS	: (' ' | '\t' | '\n' | '\r') -> skip;
 

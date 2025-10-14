@@ -35,17 +35,17 @@ public class CommandFor extends  AbstractCommand{
 
         boolean isDecreasing = operator.contains(">");
 
-        str.append("for ( " + varName + " = " + startExpr +  " ; " + 
+        str.append("\n\tfor ( " + varName + " = " + startExpr +  " ; " + 
             varName + " " + operator +  " " + endExpr + " ; " +
-             varName + (isDecreasing ? " -= " : " += ") + stepExpr + ") {\n");
+             varName + (isDecreasing ? " -= " : " += ") + stepExpr + ") \n\t{\n");
 
         for(AbstractCommand cmd : loopCommands){
             
-            str.append("    " + cmd.generateJavaCode());
+            str.append("\n\t" + cmd.generateJavaCode());
         
         }
 
-        str.append("} \n");
+        str.append("\n\t}\n");
         
         
         return str.toString();

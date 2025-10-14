@@ -14,11 +14,11 @@ public class CommandWhile extends AbstractCommand {
     @Override
     public String generateJavaCode(){
         StringBuilder str = new StringBuilder();
-        str.append("while (" + condition + ") {\n");
+        str.append("\n\twhile (" + condition + ") \n\t{");
         for(AbstractCommand cmd : loopCommand){
-            str.append(cmd.generateJavaCode());
+            str.append("\n\t" + cmd.generateJavaCode());
         }
-        str.append("\n}\n");
+        str.append("\n\t}\n");
         return  str.toString();
     }
     

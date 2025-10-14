@@ -4,6 +4,8 @@ public class Variable extends Symbol {
 
     public static final int NUMBER = 0;
     public static final int TEXT = 1;
+    public static final int BOOLEAN = 2;
+
 
     private int type;
     private String value;
@@ -39,10 +41,14 @@ public class Variable extends Symbol {
         String str;
         if (type == NUMBER) {
             str = "double ";
-        } else {
+        } 
+        else if (type == TEXT) {
             str = "String ";
         }
-        return str + " " + super.name + ";";
+        else {
+            str = "boolean ";
+        }
+        return "\n\t" + str + " " + super.name + ";";
     }
 
 }

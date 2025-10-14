@@ -2,21 +2,40 @@ import java.util.Scanner;
 public class MainClass{ 
  public static void main(String args[]){
    Scanner _key = new Scanner(System.in);
-double  soma;
-double  i;
-String  nome;
-nome= _key.nextLine();
-System.out.println(nome);
-soma = 0;
-System.out.println(soma);
-for ( i = 1 ; i <= 10 ; i += 2) {
-    System.out.println(i);    soma = soma+i;} 
 
-for ( i = 10 ; i >= 0 ; i -= 1) {
-    System.out.println(i);} 
+	boolean  flag;
 
-while (soma<20 && soma<15) {
-soma = soma+2;System.out.println(soma);
-}
+	double  soma;
+
+	double  i;
+	soma = 0;
+	flag = true;
+
+	for ( i = 1 ; i <= 10 ; i += 2) 
+	{
+
+		System.out.println(i);
+
+	}
+
+
+	if (soma<100 && flag==true) 
+	{
+		System.out.println(soma);
+
+	}
+
+	else 
+	{
+
+		System.out.println(0);
+
+	}
+
+
+	while (soma<100 || flag==false) 
+	{
+		soma = soma + 10;
+	}
 
  }}

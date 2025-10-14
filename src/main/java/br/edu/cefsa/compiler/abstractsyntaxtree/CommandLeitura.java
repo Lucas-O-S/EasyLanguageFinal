@@ -15,7 +15,7 @@ public class CommandLeitura extends AbstractCommand {
     @Override
     public String generateJavaCode() {
         // TODO Auto-generated method stub
-        return id + "= _key." + (var.getType() == Variable.NUMBER ? "nextDouble();" : "nextLine();");
+        return "\t\n"+ id + "= _key." + (var.getType() == Variable.NUMBER ? "nextDouble();" : "nextLine();");
     }
 
     @Override
