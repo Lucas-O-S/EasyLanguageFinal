@@ -30,13 +30,16 @@ grammar EasyLanguage;
     private String _exprDecision;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
+    private int _arraySize = -1; 
+
+    
     
     public void verificaID(String id){
         if (!symbolTable.exists(id)){
             throw new SemanticException("Symbol "+id+" not declared");
         }
     }
-    
+
     public void exibeComandos(){
         for (AbstractCommand c: program.getComandos()){
             System.out.println(c);
@@ -117,6 +120,7 @@ cmd
     | cmdselecao
     | cmdwhile
     | cmdfor
+    | cmdarray
     ;
 		
 cmdleitura
@@ -212,9 +216,14 @@ cmdwhile
       }
     ;
 
+    cmdarray : type=ID AC FC name=termo SC
+    
+    ;
+
+
 comp returns [String text]
     : c1=condicao {$text = $c1.text;}
-      ( op=(AND|OR | NOT) c2=condicao {
+      ( op=(AND|OR) c2=condicao {
             String opJava = $op.getText().equals("ou") ? "||" : "&&";
             $text += " " + opJava + " " + $c2.text;
         }
@@ -291,3 +300,8 @@ VIR  : ',';
 ATTR : '=';
 
 SC   : ';';
+
+AC : '[';
+
+FC : ']';
+ 
