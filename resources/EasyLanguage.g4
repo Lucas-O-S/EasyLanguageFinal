@@ -13,6 +13,7 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import java.util.ArrayList;
     import java.util.Stack;
 }
@@ -216,9 +217,24 @@ cmdwhile
       }
     ;
 
-    cmdarray : type=ID AC FC name=termo SC
-    
-    ;
+cmdarray
+    : 'vetor' tipoVar=tipo ID AC (size=INTEGER)? FC SC
+    {
+        String varName = $ID.getText();                 // variável local para evitar conflito
+        int arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0;
+
+        Variable var = new Variable(varName, _tipo, arraySize); // construtor correto
+        if (!symbolTable.exists(varName)) {
+            symbolTable.add(var);
+        } else {
+            throw new SemanticException("Array " + varName + " already declared");
+        }
+
+        CommandArrayInit cmd = new CommandArrayInit(varName, var); // se seu CommandArrayInit aceitar apenas (nome, Variable)
+        stack.peek().add(cmd);
+    }
+;
+
 
 
 comp returns [String text]

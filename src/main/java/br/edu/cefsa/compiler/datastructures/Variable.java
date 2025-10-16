@@ -1,19 +1,29 @@
 package br.edu.cefsa.compiler.datastructures;
 
-// Classe para variáveis, com enum de tipos
 public class Variable extends Symbol {
 
     public enum Type {
-        NUMBER, TEXT, BOOLEAN, INTEGER, CHAR
+        NUMBER, TEXT, BOOLEAN, INTEGER, CHAR, ARRAY
     }
 
     private Type type;
-    private String value; // valor como string para inicialização e geração de código
+    private String value; 
+    private int arraySize; 
 
+    // Construtor para variável simples com valor
     public Variable(String name, Type type, String value) {
         super(name);
         this.type = type;
         this.value = value;
+        this.arraySize = 0;
+    }
+    
+    // Construtor para array
+    public Variable(String name, Type type, int arraySize) {
+        super(name);
+        this.type = type;
+        this.arraySize = arraySize;
+        this.value = null; 
     }
 
     public Type getType() {
@@ -32,12 +42,26 @@ public class Variable extends Symbol {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return "EasyVariable [name=" + name + ", type=" + type + ", value=" + value + "]";
+    public int getArraySize() {
+        return arraySize;
     }
 
-    // Geração de código Java correspondente ao tipo
+    public void setArraySize(int arraySize) {
+        this.arraySize = arraySize;
+    }
+
+    public boolean isArray() {
+        return arraySize > 0;
+    }
+
+    @Override
+    public String toString() {
+        if (isArray()) {
+            return "Variable [name=" + name + ", type=" + type + ", arraySize=" + arraySize + "]";
+        }
+        return "Variable [name=" + name + ", type=" + type + ", value=" + value + "]";
+    }
+
     @Override
     public String generateJavaCode() {
         String strType;
@@ -47,11 +71,13 @@ public class Variable extends Symbol {
             case BOOLEAN: strType = "boolean"; break;
             case TEXT: strType = "String"; break;
             case CHAR: strType = "char"; break;
+            case ARRAY: strType = "array"; break;
             default: strType = "Object"; break;
         }
 
-        // Valor inicial, se existir
-        if (value != null) {
+        if (isArray()) {
+            return "\n\t" + strType + "[] " + name + " = new " + strType + "[" + arraySize + "];";
+        } else if (value != null) {
             return "\n\t" + strType + " " + name + " = " + value + ";";
         } else {
             return "\n\t" + strType + " " + name + ";";

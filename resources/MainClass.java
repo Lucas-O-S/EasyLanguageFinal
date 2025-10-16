@@ -5,6 +5,8 @@ public class MainClass{
 
 	int a;
 
+	int[] meuvetor = new int[2];
+
 	boolean flag;
 
 	double soma;
@@ -20,7 +22,8 @@ public class MainClass{
 	System.out.println(nome);
 
 	soma = 0;
-	flag = true;
+	flag = true;\
+int[] meuvetor = new int[2];
 
 	for ( i = 1 ; i <= 10 ; i += 2) 
 	{

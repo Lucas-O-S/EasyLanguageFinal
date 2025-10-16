@@ -13,6 +13,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import java.util.ArrayList;
     import java.util.Stack;
 
@@ -184,6 +185,18 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCmdwhile(EasyLanguageParser.CmdwhileContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCmdarray(EasyLanguageParser.CmdarrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmdarray(EasyLanguageParser.CmdarrayContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
