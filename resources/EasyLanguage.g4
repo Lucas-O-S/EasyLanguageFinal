@@ -13,6 +13,7 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import java.util.ArrayList;
     import java.util.Stack;
 }
@@ -30,6 +31,8 @@ grammar EasyLanguage;
     private String _exprDecision;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
+    private int _arraySize = -1; 
+
     
     public void verificaID(String id){
         if (!symbolTable.exists(id)){
@@ -71,33 +74,51 @@ idList
     : declareItem (VIR declareItem)*
     ;
 
-declareItem returns [String exprText]
-    : ID (ATTR e=expr { $exprText = $e.text; })?
-    {
-        String varName = $ID.getText();
-        String value = $exprText;
+arraySpec returns [int sizeVal]
+  : '[' e=INTEGER { $sizeVal = Integer.parseInt($e.getText()); }
+  | '[' ']' { $sizeVal = 0; }
+  ;
 
-        symbol = new Variable(varName, _tipo, value);
-        if (!symbolTable.exists(varName)){
-            symbolTable.add(symbol);
-        } else {
-            throw new SemanticException("Symbol " + varName + " already declared");
+declareItem returns [String exprText, int arraySize]
+  : varNameToken=ID arrSpec=arraySpec? (ATTR e=expr { $exprText = $e.text; })?
+    {
+        $arraySize = -1;
+        if ($arrSpec.text != null) {
+            $arraySize = $arrSpec.sizeVal;
         }
 
-        if (value != null) {
-            CommandAtribuicao cmd = new CommandAtribuicao(varName, value);
+        Variable symbol;
+        if ($arraySize >= 0) {
+            symbol = new Variable($varNameToken.getText(), _tipo, $arraySize);
+        } else {
+            symbol = new Variable($varNameToken.getText(), _tipo, $exprText);
+        }
+
+        if (!symbolTable.exists($varNameToken.getText())) {
+            symbolTable.add(symbol);
+        } else {
+            throw new SemanticException("Symbol " + $varNameToken.getText() + " already declared");
+        }
+
+        if ($exprText != null) {
+            CommandAtribuicao cmd = new CommandAtribuicao($varNameToken.getText(), $exprText);
             stack.peek().add(cmd);
         }
     }
-    ;
+;
+
+
+
+
            
 tipo
-    : NUMERO   { _tipo = Variable.Type.NUMBER; }
-    | TEXTO    { _tipo = Variable.Type.TEXT; }
-    | BOOLEANO { _tipo = Variable.Type.BOOLEAN; }
-    | INTEIRO  { _tipo = Variable.Type.INTEGER; }
-    | CARACTERE{ _tipo = Variable.Type.CHAR; }
+    : NUMERO   (AC size=INTEGER? FC { _tipo = Variable.Type.NUMBER; _arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0; })
+    | TEXTO    (AC size=INTEGER? FC { _tipo = Variable.Type.TEXT;   _arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0; })
+    | BOOLEANO (AC size=INTEGER? FC { _tipo = Variable.Type.BOOLEAN;_arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0; })
+    | INTEIRO  (AC size=INTEGER? FC { _tipo = Variable.Type.INTEGER;_arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0; })
+    | CARACTERE(AC size=INTEGER? FC { _tipo = Variable.Type.CHAR;   _arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0; })
     ;
+
         
 bloco
     : ACH
@@ -107,7 +128,13 @@ bloco
       }
       (cmd | decl)+
       FCH
-      ;
+      {
+        ArrayList<AbstractCommand> commands = stack.pop();
+        if (commands != null) {
+          curThread = new ArrayList<>();
+        }
+      }
+    ;
 		
 
 cmd
@@ -117,11 +144,33 @@ cmd
     | cmdselecao
     | cmdwhile
     | cmdfor
+    | cmdArrayInit
     ;
+
+cmdArrayInit
+  : arrayNameToken=ID ACH valores+=expr (VIR valores+=expr)* FCH SC?
+  {
+    ArrayList<String> vals = new ArrayList<String>();
+    for (int i = 0; i < $valores.size(); i++) {
+      vals.add($valores.get(i).text);
+    }
+    String arrName = $arrayNameToken.getText();
+    Variable var = null;
+    if (symbolTable.exists(arrName)) {
+      var = (Variable) symbolTable.get(arrName);
+      if (!var.isArray()) {
+        throw new SemanticException("Symbol " + arrName + " is not an array");
+      }
+    }
+
+    CommandArrayInit cmd = new CommandArrayInit(arrName, vals, var);
+    stack.peek().add(cmd);
+  }
+  ;
 		
 cmdleitura
     : 'leia' AP
-        id=ID { verificaID($id.getText()); _readID = $id.getText(); }
+        idToken=ID { verificaID($idToken.getText()); _readID = $idToken.getText(); }
       FP SC
       {
         Variable var = (Variable)symbolTable.get(_readID);
@@ -129,7 +178,7 @@ cmdleitura
         stack.peek().add(cmd);
       }
     ;
-			
+
 cmdescrita
     : 'escreva' AP e=expr FP SC
       {
@@ -139,14 +188,22 @@ cmdescrita
     ;
 			
 cmdattrib
-    : id=ID { verificaID($id.getText()); _exprID = $id.getText(); }
-      ATTR e=expr SC
-      {
-        _exprContent = $e.text;
-        CommandAtribuicao cmd = new CommandAtribuicao(_exprID, _exprContent);
-        stack.peek().add(cmd);
-      }
-    ;
+  : indexedVar=idIndexed ATTR e=expr SC
+  {
+      CommandAtribuicao cmd = new CommandAtribuicao($indexedVar.name, $e.text, $indexedVar.index);
+      stack.peek().add(cmd);
+  }
+  | simpleVar=ID ATTR e=expr SC
+  {
+      CommandAtribuicao cmd = new CommandAtribuicao($simpleVar.getText(), $e.text);
+      stack.peek().add(cmd);
+  }
+;
+
+idIndexed returns [String name, String index]
+  : indexVar=ID '[' e=expr ']' { $name = $indexVar.getText(); $index = $e.text; }
+  ;
+
 
 cmdselecao
     : 'se' AP c=comp FP ACH
@@ -214,7 +271,7 @@ cmdwhile
 
 comp returns [String text]
     : c1=condicao {$text = $c1.text;}
-      ( op=(AND|OR | NOT) c2=condicao {
+      ( op=(AND|OR) c2=condicao {
             String opJava = $op.getText().equals("ou") ? "||" : "&&";
             $text += " " + opJava + " " + $c2.text;
         }
@@ -232,7 +289,8 @@ expr returns [String text]
     ;
 
 termo returns [String text]
-    : ID { $text = $ID.getText(); }
+    :ID AC eIdx=expr FC { $text = $ID.getText() + "[" + $eIdx.text + "]"; }
+    | ID { $text = $ID.getText(); }
     | NUMBER { $text = $NUMBER.getText(); }
     | BOOL
       {
@@ -249,6 +307,10 @@ termo returns [String text]
 AP : '(';
 
 FP : ')';
+
+AC : '[';
+
+FC : ']';
 
 OP : '+' | '-' | '*' | '/';
 
@@ -291,3 +353,4 @@ VIR  : ',';
 ATTR : '=';
 
 SC   : ';';
+

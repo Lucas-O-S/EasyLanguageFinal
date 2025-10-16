@@ -6,7 +6,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import br.edu.cefsa.compiler.exceptions.SemanticException;
 import br.edu.cefsa.compiler.parser.EasyLanguageLexer;
 import br.edu.cefsa.compiler.parser.EasyLanguageParser;
-import org.antlr.v4.runtime.CommonTokenStream;
 
 
 /* esta é a classe que é responsável por criar a interação com o usuário
@@ -43,9 +42,12 @@ public class MainClass {
 
             parser.generateCode();
 
-        } catch (SemanticException ex) {
+        } 
+        catch (SemanticException ex) {
             System.err.println("Semantic error - " + ex.getMessage());
-        } catch (Exception ex) {
+            
+        }
+         catch (Exception ex) {
             ex.printStackTrace();
             System.err.println("ERROR " + ex.getMessage());
         }

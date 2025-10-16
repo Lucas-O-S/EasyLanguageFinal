@@ -11,6 +11,8 @@ public class MainClass{
 
 	char v;
 
+	int vetor;
+
 	double i;
 
 	String nome;
@@ -21,14 +23,18 @@ public class MainClass{
 
 	soma = 0;
 	flag = true;
+	vetor[0] = 10;
+	vetor[1] = 20;
+	vetor[2] = 30;
 
-	for ( i = 1 ; i <= 10 ; i += 2) 
+	for ( i = 0 ; i <= 2 ; i += 1) 
 	{
 
-		System.out.println(i);
+		System.out.println(vetor[i]);
 
 	}
 
+	soma = vetor[0] + vetor[1];
 
 	if (soma<100 && !flag==true) 
 	{

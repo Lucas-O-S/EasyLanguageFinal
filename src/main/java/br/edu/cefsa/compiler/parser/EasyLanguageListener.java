@@ -13,6 +13,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import java.util.ArrayList;
     import java.util.Stack;
 
@@ -54,6 +55,16 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 */
 	void exitIdList(EasyLanguageParser.IdListContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#arraySpec}.
+	 * @param ctx the parse tree
+	 */
+	void enterArraySpec(EasyLanguageParser.ArraySpecContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#arraySpec}.
+	 * @param ctx the parse tree
+	 */
+	void exitArraySpec(EasyLanguageParser.ArraySpecContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#declareItem}.
 	 * @param ctx the parse tree
 	 */
@@ -94,6 +105,16 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 */
 	void exitCmd(EasyLanguageParser.CmdContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdArrayInit}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdArrayInit(EasyLanguageParser.CmdArrayInitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdArrayInit}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdArrayInit(EasyLanguageParser.CmdArrayInitContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdleitura}.
 	 * @param ctx the parse tree
 	 */
@@ -123,6 +144,16 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmdattrib(EasyLanguageParser.CmdattribContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#idIndexed}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdIndexed(EasyLanguageParser.IdIndexedContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#idIndexed}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdIndexed(EasyLanguageParser.IdIndexedContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdselecao}.
 	 * @param ctx the parse tree
