@@ -1,11 +1,11 @@
 programa
+{
 numero i, soma;
 booleano flag;
 texto nome;
 inteiro a;
 caractere v;
 
-{
     a = 2;
     v = 'c';
     leia(nome);
@@ -13,7 +13,7 @@ caractere v;
     soma = 0;
     flag = verdadeiro;
 
-    vetor inteiro meuvetor [2];
+    vetor texto meuvetor [2];
 
     para (i de 1 <= 10 passo 2) faca {
         escreva(i);

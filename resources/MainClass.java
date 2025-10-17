@@ -5,7 +5,7 @@ public class MainClass{
 
 	int a;
 
-	int[] meuvetor = new int[2];
+	String[] meuvetor = new String[2];
 
 	boolean flag;
 
@@ -22,8 +22,7 @@ public class MainClass{
 	System.out.println(nome);
 
 	soma = 0;
-	flag = true;\
-int[] meuvetor = new int[2];
+	flag = true;
 
 	for ( i = 1 ; i <= 10 ; i += 2) 
 	{

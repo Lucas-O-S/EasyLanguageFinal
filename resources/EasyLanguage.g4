@@ -58,7 +58,6 @@ prog
         curThread = new ArrayList<>();
         stack.push(curThread);
       }
-      (decl)*
       bloco
       'fimprog;'
       {
@@ -220,18 +219,19 @@ cmdwhile
 cmdarray
     : 'vetor' tipoVar=tipo ID AC (size=INTEGER)? FC SC
     {
-        String varName = $ID.getText();                 // variável local para evitar conflito
+        String varName = $ID.getText();                 
         int arraySize = ($size != null) ? Integer.parseInt($size.getText()) : 0;
 
-        Variable var = new Variable(varName, _tipo, arraySize); // construtor correto
+  
+        Variable.Type arrayType = _tipo;
+
+        Variable var = new Variable(varName, arrayType, arraySize);
         if (!symbolTable.exists(varName)) {
             symbolTable.add(var);
         } else {
             throw new SemanticException("Array " + varName + " already declared");
         }
 
-        CommandArrayInit cmd = new CommandArrayInit(varName, var); // se seu CommandArrayInit aceitar apenas (nome, Variable)
-        stack.peek().add(cmd);
     }
 ;
 
