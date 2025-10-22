@@ -10,6 +10,7 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicaoArrayItem;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
@@ -31,6 +32,7 @@ grammar EasyLanguage;
     private String _exprDecision;
     private ArrayList<AbstractCommand> listaTrue;
     private ArrayList<AbstractCommand> listaFalse;
+    private String _position;
     private int _arraySize = -1; 
 
     
@@ -74,6 +76,7 @@ idList
     : declareItem (VIR declareItem)*
     ;
 
+
 declareItem returns [String exprText]
     : ID (ATTR e=expr { $exprText = $e.text; })?
     {
@@ -116,6 +119,7 @@ bloco
 cmd
     : cmdleitura
     | cmdescrita
+    | cmdattribarrayitem
     | cmdattrib
     | cmdselecao
     | cmdwhile
@@ -148,6 +152,18 @@ cmdattrib
       {
         _exprContent = $e.text;
         CommandAtribuicao cmd = new CommandAtribuicao(_exprID, _exprContent);
+        stack.peek().add(cmd);
+      }
+    ;
+
+cmdattribarrayitem
+    : id=ID AC idx=expr FC ATTR e=expr SC
+      {
+        verificaID($id.getText());
+        _exprID = $id.getText();
+        _position = $idx.text;
+        _exprContent = $e.text;
+        CommandAtribuicaoArrayItem cmd = new CommandAtribuicaoArrayItem(_exprID, _exprContent, _position);
         stack.peek().add(cmd);
       }
     ;
@@ -267,6 +283,7 @@ termo returns [String text]
         $text = val;
       }
     | INTEGER { $text = $INTEGER.getText(); }
+    | STRING   { $text = $STRING.getText(); }
     | CHAR { $text = $CHAR.getText(); }  
     | AP e=expr FP { $text = "(" + $e.text + ")"; }
     ;
@@ -296,6 +313,8 @@ CHAR : '\'' ( ~['\\] | '\\' . ) '\'' ;
 NUMBER : [0-9]+ '.' [0-9]+;
 
 INTEGER : [0-9]+;
+
+STRING : '"' (~["\\] | '\\' .)* '"';
 
 WS : (' ' | '\t' | '\n' | '\r') -> skip;
 

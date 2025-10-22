@@ -10,6 +10,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandLeitura;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandEscrita;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicao;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandAtribuicaoArrayItem;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandDecisao;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
@@ -124,6 +125,16 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmdattrib(EasyLanguageParser.CmdattribContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdattribarrayitem}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdattribarrayitem(EasyLanguageParser.CmdattribarrayitemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdattribarrayitem}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdattribarrayitem(EasyLanguageParser.CmdattribarrayitemContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdselecao}.
 	 * @param ctx the parse tree

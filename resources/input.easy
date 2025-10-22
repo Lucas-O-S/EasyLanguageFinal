@@ -15,6 +15,8 @@ caractere v;
 
     vetor texto meuvetor [2];
 
+    meuvetor[2] = "A";
+
     para (i de 1 <= 10 passo 2) faca {
         escreva(i);
     }

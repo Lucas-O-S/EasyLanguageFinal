@@ -23,6 +23,7 @@ public class MainClass{
 
 	soma = 0;
 	flag = true;
+	meuvetor[2] = "A";
 
 	for ( i = 1 ; i <= 10 ; i += 2) 
 	{
