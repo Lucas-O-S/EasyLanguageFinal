@@ -219,6 +219,26 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 */
 	void exitRetorno(EasyLanguageParser.RetornoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdChamadaFuncao}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdChamadaFuncao(EasyLanguageParser.CmdChamadaFuncaoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdChamadaFuncao}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdChamadaFuncao(EasyLanguageParser.CmdChamadaFuncaoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#listaArgumentos}.
+	 * @param ctx the parse tree
+	 */
+	void enterListaArgumentos(EasyLanguageParser.ListaArgumentosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#listaArgumentos}.
+	 * @param ctx the parse tree
+	 */
+	void exitListaArgumentos(EasyLanguageParser.ListaArgumentosContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#comp}.
 	 * @param ctx the parse tree
 	 */

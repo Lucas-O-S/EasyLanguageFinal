@@ -42,6 +42,8 @@ grammar EasyLanguage;
     private ArrayList<CommandFunction> _functions = new ArrayList<>();
     private boolean _insideFunction = false;
     private SymbolTable prevTable = new SymbolTable();
+    private ArrayList<String> _callArgs = new ArrayList<>();
+
 
 
     
@@ -127,6 +129,7 @@ tipo
     | BOOLEANO { _tipo = Variable.Type.BOOLEAN; }
     | INTEIRO  { _tipo = Variable.Type.INTEGER; }
     | CARACTERE{ _tipo = Variable.Type.CHAR; }
+    | VAZIO    { _tipo = Variable.Type.VOID; }
     ;
         
 bloco
@@ -149,6 +152,7 @@ cmd
     | cmdwhile
     | cmdfor
     | cmdarray
+    | cmdChamadaFuncao
     ;
 		
 cmdleitura
@@ -340,6 +344,33 @@ retorno
       }
     ;
 
+cmdChamadaFuncao
+    : id=ID AP (args=listaArgumentos)? FP SC
+      {
+          // Verifica se a função existe
+          if (!symbolTable.exists($id.getText())) {
+              throw new SemanticException("Function " + $id.getText() + " not declared");
+          }
+
+          // Usa a variável global para armazenar os argumentos
+          _callArgs =  $args.argsList;
+
+          CommandCallFunction cmd = new CommandCallFunction($id.getText(), _callArgs);
+          stack.peek().add(cmd);
+
+          // Limpa _callArgs após adicionar a chamada
+          _callArgs = null;
+      }
+    ;
+
+
+// Lista de argumentos para a chamada
+listaArgumentos returns [ArrayList<String> argsList]
+    : e=expr { $argsList = new ArrayList<>(); $argsList.add($e.text); }
+      (VIR e2=expr { $argsList.add($e2.text); })*
+    ;
+
+
 
 comp returns [String text]
     : c1=condicao {$text = $c1.text;}
@@ -415,6 +446,9 @@ TEXTO    : 'texto';
 INTEIRO  : 'inteiro';
 
 CARACTERE: 'caractere';
+
+VAZIO : 'vazio';
+
 
 ID   : [a-z] ([a-zA-Z0-9])* ;
 

@@ -14,6 +14,12 @@ public static String saudacao(String pessoa, double abs) {
 }
 
 
+public static void teste(String acsa) {
+    String a;
+    a = "a";
+}
+
+
 	public static void main(String args[]) {
 	Scanner _key = new Scanner(System.in);
 

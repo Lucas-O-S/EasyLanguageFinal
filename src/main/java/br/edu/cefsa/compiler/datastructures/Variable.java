@@ -3,7 +3,7 @@ package br.edu.cefsa.compiler.datastructures;
 public class Variable extends Symbol {
 
     public enum Type {
-        NUMBER, TEXT, BOOLEAN, INTEGER, CHAR, ARRAY
+        NUMBER, TEXT, BOOLEAN, INTEGER, CHAR, ARRAY, VOID
     }
 
     private Type type;
@@ -72,6 +72,7 @@ public class Variable extends Symbol {
             case TEXT: strType = "String"; break;
             case CHAR: strType = "char"; break;
             case ARRAY: strType = "array"; break;
+            case VOID: strType = "void"; break;
             default: strType = "Object"; break;
         }
 

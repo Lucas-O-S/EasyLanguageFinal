@@ -10,6 +10,12 @@
         retorne mensagem;
     }
 
+    funcao vazio teste(texto acsa){
+        texto a;
+        a = "a";
+
+    }
+
 programa
 {
 
@@ -21,10 +27,8 @@ programa
     inteiro a;
     caractere v;
 
+
     vetor texto meuvetor[2];
-
- 
-
     a = 2;
     v = 'c';
     leia(nome);

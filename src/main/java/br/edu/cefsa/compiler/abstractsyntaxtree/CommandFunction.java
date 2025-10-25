@@ -66,6 +66,7 @@ public class CommandFunction extends AbstractCommand {
             case BOOLEAN -> "boolean";
             case INTEGER -> "int";
             case CHAR -> "char";
+            case VOID  -> "void";
             default -> "void";
         };
     }
