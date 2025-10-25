@@ -1,5 +1,4 @@
-// Generated from EasyLanguage.g4 by ANTLR 4.12.0
-package br.edu.cefsa.compiler.parser;
+// Generated from /Users/grupotaak/Downloads/ProgamacaoPessoal/EasyLanguageFinal/src/br/edu/cefsa/compiler/parser/EasyLanguage.g4 by ANTLR 4.13.1
 
     import br.edu.cefsa.compiler.datastructures.Symbol;
     import br.edu.cefsa.compiler.datastructures.Variable;
@@ -30,9 +29,9 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
-@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue"})
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast", "CheckReturnValue", "this-escape"})
 public class EasyLanguageLexer extends Lexer {
-	static { RuntimeMetaData.checkVersion("4.12.0", RuntimeMetaData.VERSION); }
+	static { RuntimeMetaData.checkVersion("4.13.1", RuntimeMetaData.VERSION); }
 
 	protected static final DFA[] _decisionToDFA;
 	protected static final PredictionContextCache _sharedContextCache =
@@ -134,7 +133,6 @@ public class EasyLanguageLexer extends Lexer {
 	    private ArrayList<Variable> _parameters;
 	    private ArrayList<CommandFunction> _functions = new ArrayList<>();
 	    private boolean _insideFunction = false;
-	    private SymbolTable prevTable = new SymbolTable();
 
 
 	    

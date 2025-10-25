@@ -4,6 +4,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.datastructures.Symbol;
     import br.edu.cefsa.compiler.datastructures.Variable;
     import br.edu.cefsa.compiler.datastructures.SymbolTable;
+    import br.edu.cefsa.compiler.datastructures.Function;
     import br.edu.cefsa.compiler.exceptions.SemanticException;
     import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
     import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
@@ -15,6 +16,8 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFunction;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandReturn;
     import java.util.ArrayList;
     import java.util.Stack;
 
@@ -210,6 +213,54 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCmdarray(EasyLanguageParser.CmdarrayContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCmdfuncao(EasyLanguageParser.CmdfuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCmdfuncao(EasyLanguageParser.CmdfuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterListaParametros(EasyLanguageParser.ListaParametrosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitListaParametros(EasyLanguageParser.ListaParametrosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParametro(EasyLanguageParser.ParametroContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParametro(EasyLanguageParser.ParametroContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRetorno(EasyLanguageParser.RetornoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRetorno(EasyLanguageParser.RetornoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

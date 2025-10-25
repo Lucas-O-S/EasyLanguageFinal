@@ -4,6 +4,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.datastructures.Symbol;
     import br.edu.cefsa.compiler.datastructures.Variable;
     import br.edu.cefsa.compiler.datastructures.SymbolTable;
+    import br.edu.cefsa.compiler.datastructures.Function;
     import br.edu.cefsa.compiler.exceptions.SemanticException;
     import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
     import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
@@ -15,6 +16,8 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFunction;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandReturn;
     import java.util.ArrayList;
     import java.util.Stack;
 
@@ -175,6 +178,46 @@ public interface EasyLanguageListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCmdarray(EasyLanguageParser.CmdarrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#cmdfuncao}.
+	 * @param ctx the parse tree
+	 */
+	void enterCmdfuncao(EasyLanguageParser.CmdfuncaoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#cmdfuncao}.
+	 * @param ctx the parse tree
+	 */
+	void exitCmdfuncao(EasyLanguageParser.CmdfuncaoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#listaParametros}.
+	 * @param ctx the parse tree
+	 */
+	void enterListaParametros(EasyLanguageParser.ListaParametrosContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#listaParametros}.
+	 * @param ctx the parse tree
+	 */
+	void exitListaParametros(EasyLanguageParser.ListaParametrosContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#parametro}.
+	 * @param ctx the parse tree
+	 */
+	void enterParametro(EasyLanguageParser.ParametroContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#parametro}.
+	 * @param ctx the parse tree
+	 */
+	void exitParametro(EasyLanguageParser.ParametroContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link EasyLanguageParser#retorno}.
+	 * @param ctx the parse tree
+	 */
+	void enterRetorno(EasyLanguageParser.RetornoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link EasyLanguageParser#retorno}.
+	 * @param ctx the parse tree
+	 */
+	void exitRetorno(EasyLanguageParser.RetornoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link EasyLanguageParser#comp}.
 	 * @param ctx the parse tree

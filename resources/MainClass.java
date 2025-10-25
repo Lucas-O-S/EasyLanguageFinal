@@ -1,7 +1,21 @@
 import java.util.Scanner;
-public class MainClass{ 
- public static void main(String args[]){
-   Scanner _key = new Scanner(System.in);
+public class MainClass {
+public static double dobrar(double valor) {
+    double resultado;
+    resultado = valor * 2;
+    return resultado;
+}
+
+
+public static String saudacao(String pessoa, double abs) {
+    String mensagem;
+    mensagem = "Olá, " + pessoa + "!";
+    return mensagem;
+}
+
+
+	public static void main(String args[]) {
+	Scanner _key = new Scanner(System.in);
 
 	int a;
 
@@ -16,25 +30,28 @@ public class MainClass{
 	double i;
 
 	String nome;
-	a = 2;
-	v = 'c';
+a = 2;
+v = 'c';
 	nome = _key.nextLine();
-	System.out.println(nome);
-
-	soma = 0;
-	flag = true;
-	meuvetor[2] = "A";
+soma = 0;
+flag = true;
+	meuvetor[1] = "A";
 
 	for ( i = 1 ; i <= 10 ; i += 2) 
 	{
 
+		System.out.println("Valor de i: ");
+
 		System.out.println(i);
+
+		System.out.println(" Dobrado: ");
 
 	}
 
 
 	if (soma<100 && !flag==true) 
 	{
+		System.out.println("Soma ainda menor que 100");
 		System.out.println(soma);
 
 	}
@@ -49,7 +66,11 @@ public class MainClass{
 
 	while (soma<100 || flag==false) 
 	{
-		soma = soma + 10;
+	soma = soma + 10;
 	}
 
- }}
+	System.out.println("Fim do programa!");
+
+    _key.close();
+    }
+}

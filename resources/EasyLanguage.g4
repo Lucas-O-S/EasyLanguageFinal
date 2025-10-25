@@ -4,6 +4,7 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.datastructures.Symbol;
     import br.edu.cefsa.compiler.datastructures.Variable;
     import br.edu.cefsa.compiler.datastructures.SymbolTable;
+    import br.edu.cefsa.compiler.datastructures.Function;
     import br.edu.cefsa.compiler.exceptions.SemanticException;
     import br.edu.cefsa.compiler.abstractsyntaxtree.Program;
     import br.edu.cefsa.compiler.abstractsyntaxtree.AbstractCommand;
@@ -15,12 +16,15 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFor;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandWhile;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFunction;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandReturn;
     import java.util.ArrayList;
     import java.util.Stack;
 }
 
 @members{
     private Variable.Type _tipo;
+    private Variable.Type _funcTipo;
     private SymbolTable symbolTable = new SymbolTable();
     private Symbol symbol;
     private Program program = new Program();
@@ -34,6 +38,11 @@ grammar EasyLanguage;
     private ArrayList<AbstractCommand> listaFalse;
     private String _position;
     private int _arraySize = -1; 
+    private ArrayList<Variable> _parameters;
+    private ArrayList<CommandFunction> _functions = new ArrayList<>();
+    private boolean _insideFunction = false;
+    private SymbolTable prevTable = new SymbolTable();
+
 
     
     
@@ -55,7 +64,7 @@ grammar EasyLanguage;
 }
 
 prog
-    : 'programa'
+    : (cmdfuncao)* 'programa'
       {
         curThread = new ArrayList<>();
         stack.push(curThread);
@@ -65,6 +74,7 @@ prog
       {
         program.setVarTable(symbolTable);
         program.setComandos(stack.pop());
+        program.setFunctions(_functions);
       }
     ;
 
@@ -83,19 +93,33 @@ declareItem returns [String exprText]
         String varName = $ID.getText();
         String value = $exprText;
 
-        symbol = new Variable(varName, _tipo, value);
+        // Tipo da variável
+        Variable.Type varType = _tipo;
+
+        // Criação do símbolo
+        symbol = new Variable(varName, varType, value);
         if (!symbolTable.exists(varName)){
             symbolTable.add(symbol);
         } else {
             throw new SemanticException("Symbol " + varName + " already declared");
         }
 
+        // Criação do comando de atribuição
         if (value != null) {
-            CommandAtribuicao cmd = new CommandAtribuicao(varName, value);
+            CommandAtribuicao cmd;
+            if (_insideFunction) {
+                // variável local da função: passa o tipo
+                cmd = new CommandAtribuicao(varName, value, varType);
+            } else {
+                // variável global: apenas atribuição
+                cmd = new CommandAtribuicao(varName, value);
+            }
             stack.peek().add(cmd);
         }
     }
-    ;
+;
+
+
            
 tipo
     : NUMERO   { _tipo = Variable.Type.NUMBER; }
@@ -251,6 +275,70 @@ cmdarray
     }
 ;
 
+cmdfuncao
+    : 'funcao' t=tipo id=ID
+      AP
+        {
+            // Inicializa lista de parâmetros e contexto da função
+            _parameters = new ArrayList<>();
+            _funcTipo = _tipo;  // tipo de retorno da função
+            _insideFunction = true;
+
+            // Salva contexto da tabela de símbolos
+            prevTable = symbolTable;
+            symbolTable = new SymbolTable();
+
+            // Prepara novo bloco de comandos
+            curThread = new ArrayList<>();
+            stack.push(curThread);
+        }
+        (listaParametros)?
+      FP
+      ACH
+        (decl | cmd)*
+        (retorno)?
+      FCH
+        {
+            // Recupera comandos da função
+            ArrayList<AbstractCommand> listaFunc = stack.pop();
+
+            // Cria lista de parâmetros
+            ArrayList<Variable> paramList = _parameters;
+
+            // Cria função com parâmetros, tabela local e comandos
+            Function func = new Function($id.getText(), _funcTipo, paramList, symbolTable, listaFunc);
+
+            // Adiciona função à lista de funções
+            _functions.add(new CommandFunction(func));
+
+            // Restaura contexto global
+            symbolTable = prevTable;
+            prevTable = null;
+            _parameters = null;
+            _insideFunction = false;
+        }
+    ;
+
+listaParametros
+    : parametro (VIR parametro)*
+    ;
+
+parametro
+    : t=tipo id=ID
+      {
+          // Cria variável de parâmetro usando o tipo atualizado por 'tipo'
+          Variable v = new Variable($id.getText(), _tipo, null);
+          _parameters.add(v);
+      }
+    ;
+
+retorno
+    : 'retorne' e=expr SC
+      {
+        CommandReturn cmd = new CommandReturn($e.text);
+        stack.peek().add(cmd);
+      }
+    ;
 
 
 comp returns [String text]
