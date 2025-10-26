@@ -1,59 +1,55 @@
-   funcao numero dobrar(numero valor) {
-        numero resultado;
-        resultado = valor * 2;
-        retorne resultado;
-    }
+funcao decimal media(decimal a, decimal b, decimal c) {
+    decimal resultado;
+    resultado = (a + b + c) / 3;
+    retorne resultado;
+}
 
-    funcao texto saudacao(texto pessoa, numero abs) {
-        texto mensagem;
-        mensagem = "Olá, " + pessoa + "!";
-        retorne mensagem;
-    }
+funcao decimal multiplicar(decimal x, decimal y) {
+    decimal resultado;
+    resultado = x * y;
+    retorne resultado;
+}
 
-    funcao vazio teste(texto acsa){
-        texto a;
-        a = "a";
+funcao texto mensagemFinal(decimal valor) {
+    texto msg;
+    msg = "Média final: " + valor;
+    retorne msg;
+}
 
-    }
+funcao vazio exibirMensagem(texto txt) {
+    escreva txt;
+}
 
 programa
 {
+    decimal n1, n2, n3, med, produto;
+    texto nome, msg;
+    booleano aprovado;
 
-
-
-    numero i, soma;
-    booleano flag;
-    texto nome;
-    inteiro a;
-    caractere v;
-
-
-    vetor texto meuvetor[2];
-    a = 2;
-    v = 'c';
+    escreva("Digite o nome do aluno:");
     leia(nome);
 
-    soma = 0;
-    flag = verdadeiro;
-    meuvetor[1] = "A";
+    n1 = 7;
+    n2 = 8;
+    n3 = 9;
 
-    para (i de 1 <= 10 passo 2) faca {
-        escreva("Valor de i: ");
-        escreva(i);
-        escreva(" Dobrado: ");
-    }
+    med = media(n1, n2, n3);
+    produto = multiplicar(med, 2);
 
-    se (soma < 100 e nao flag == verdadeiro) {
-        escreva("Soma ainda menor que 100");
-        escreva(soma);
+    se (med >= 7) {
+        aprovado = verdadeiro;
     } senao {
-        escreva(0);
+        aprovado = falso;
     }
 
-    enquanto (soma < 100 ou flag == falso) {
-        soma = soma + 10;
+    se (aprovado == verdadeiro) {
+        msg = mensagemFinal(produto);
+        exibirMensagem("Aluno " + nome + " aprovado!");
+        exibirMensagem(msg);
+    } senao {
+        exibirMensagem("Aluno " + nome + " reprovado!");
     }
 
-    escreva("Fim do programa!");
+    escreva("Fim da execução");
 }
 fimprog;

@@ -25,7 +25,7 @@ public class CommandAtribuicao extends AbstractCommand {
     public String getTypeString() {
         if (tipo == null) return ""; // sem tipo
         switch (tipo) {
-            case NUMBER: return "double";
+            case DECIMAL: return "double";
             case TEXT: return "String";
             case BOOLEAN: return "boolean";
             case INTEGER: return "int";

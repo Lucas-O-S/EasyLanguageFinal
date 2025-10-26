@@ -61,7 +61,7 @@ public class CommandFunction extends AbstractCommand {
 
     private String mapType(Variable.Type type) {
         return switch (type) {
-            case NUMBER -> "double";
+            case DECIMAL -> "double";
             case TEXT -> "String";
             case BOOLEAN -> "boolean";
             case INTEGER -> "int";

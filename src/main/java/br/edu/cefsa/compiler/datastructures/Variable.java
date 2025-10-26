@@ -3,7 +3,7 @@ package br.edu.cefsa.compiler.datastructures;
 public class Variable extends Symbol {
 
     public enum Type {
-        NUMBER, TEXT, BOOLEAN, INTEGER, CHAR, ARRAY, VOID
+        DECIMAL, TEXT, BOOLEAN, INTEGER, CHAR, ARRAY, VOID
     }
 
     private Type type;
@@ -66,7 +66,7 @@ public class Variable extends Symbol {
     public String generateJavaCode() {
         String strType;
         switch (type) {
-            case NUMBER: strType = "double"; break;
+            case DECIMAL: strType = "double"; break;
             case INTEGER: strType = "int"; break;
             case BOOLEAN: strType = "boolean"; break;
             case TEXT: strType = "String"; break;

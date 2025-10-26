@@ -31,7 +31,7 @@ public class CommandArrayInit extends AbstractCommand {
 
         String javaType;
         switch (var.getType()) {
-            case NUMBER: javaType = "double"; break;
+            case DECIMAL: javaType = "double"; break;
             case INTEGER: javaType = "int"; break;
             case BOOLEAN: javaType = "boolean"; break;
             case TEXT: javaType = "String"; break;

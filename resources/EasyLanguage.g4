@@ -18,6 +18,7 @@ grammar EasyLanguage;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFunction;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandReturn;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandCallFunction;
     import java.util.ArrayList;
     import java.util.Stack;
 }
@@ -43,6 +44,8 @@ grammar EasyLanguage;
     private boolean _insideFunction = false;
     private SymbolTable prevTable = new SymbolTable();
     private ArrayList<String> _callArgs = new ArrayList<>();
+    private java.util.ArrayList<String> _callArgsTemp = new java.util.ArrayList<>();
+
 
 
 
@@ -124,7 +127,7 @@ declareItem returns [String exprText]
 
            
 tipo
-    : NUMERO   { _tipo = Variable.Type.NUMBER; }
+    : DECIMAL   { _tipo = Variable.Type.NUMBER; }
     | TEXTO    { _tipo = Variable.Type.TEXT; }
     | BOOLEANO { _tipo = Variable.Type.BOOLEAN; }
     | INTEIRO  { _tipo = Variable.Type.INTEGER; }
@@ -343,32 +346,76 @@ retorno
         stack.peek().add(cmd);
       }
     ;
-
 cmdChamadaFuncao
-    : id=ID AP (args=listaArgumentos)? FP SC
+    : id=ID AP (args=listaArgumentos { _callArgsTemp = $args.argsList; })? FP SC
       {
-          // Verifica se a função existe
-          if (!symbolTable.exists($id.getText())) {
+          // Garante que _callArgsTemp nunca seja nula
+          java.util.ArrayList<String> callArgs = (_callArgsTemp != null)
+              ? _callArgsTemp
+              : new java.util.ArrayList<String>();
+
+          // Verifica se a função existe: busca em _functions
+          boolean funcFound = false;
+          for (CommandFunction cf : _functions) {
+              try {
+                  Function f = cf.getFunction();
+                  if (f.getName().equals($id.getText())) {
+                      funcFound = true;
+                      break;
+                  }
+              } catch (Exception ex) {
+                  // ignora e continua
+              }
+          }
+          if (!funcFound && !symbolTable.exists($id.getText())) {
               throw new SemanticException("Function " + $id.getText() + " not declared");
           }
 
-          // Usa a variável global para armazenar os argumentos
-          _callArgs =  $args.argsList;
-
-          CommandCallFunction cmd = new CommandCallFunction($id.getText(), _callArgs);
+          // Cria o comando de chamada
+          CommandCallFunction cmd = new CommandCallFunction($id.getText(), callArgs);
           stack.peek().add(cmd);
 
-          // Limpa _callArgs após adicionar a chamada
-          _callArgs = null;
+          // Limpa variável temporária
+          _callArgsTemp = new java.util.ArrayList<>();
       }
     ;
 
 
-// Lista de argumentos para a chamada
-listaArgumentos returns [ArrayList<String> argsList]
-    : e=expr { $argsList = new ArrayList<>(); $argsList.add($e.text); }
+listaArgumentos returns [java.util.ArrayList<String> argsList]
+    : e=expr
+      {
+          $argsList = new java.util.ArrayList<String>();
+          $argsList.add($e.text);
+      }
       (VIR e2=expr { $argsList.add($e2.text); })*
+      {
+          // guarda em variável membro para uso por regras externas
+          _callArgsTemp = $argsList;
+      }
     ;
+
+
+    // chamada de função como expressão (retornará um String com "nome(arg1, arg2, ...)")
+funcCall returns [String text]
+    : id=ID AP (args=listaArgumentos { _callArgsTemp = $args.argsList; })? FP
+      {
+          String name = $id.getText();
+          java.util.ArrayList<String> argsList = (_callArgsTemp != null)
+              ? _callArgsTemp
+              : new java.util.ArrayList<String>();
+
+          StringBuilder sb = new StringBuilder();
+          for (int i = 0; i < argsList.size(); i++) {
+              if (i > 0) sb.append(", ");
+              sb.append(argsList.get(i));
+          }
+
+          $text = name + "(" + sb.toString() + ")";
+          _callArgsTemp = new java.util.ArrayList<>(); // limpa
+      }
+    ;
+
+
 
 
 
@@ -396,16 +443,18 @@ termo returns [String text]
     | NUMBER { $text = $NUMBER.getText(); }
     | BOOL
       {
-        String val = $BOOL.getText(); 
+        String val = $BOOL.getText();
         if(val.equals("verdadeiro")) val = "true";
         else if(val.equals("falso")) val = "false";
         $text = val;
       }
     | INTEGER { $text = $INTEGER.getText(); }
     | STRING   { $text = $STRING.getText(); }
-    | CHAR { $text = $CHAR.getText(); }  
+    | CHAR { $text = $CHAR.getText(); }
+    | f=funcCall { $text = $f.text; }             
     | AP e=expr FP { $text = "(" + $e.text + ")"; }
     ;
+
 
 AP : '(';
 
@@ -437,7 +486,7 @@ STRING : '"' (~["\\] | '\\' .)* '"';
 
 WS : (' ' | '\t' | '\n' | '\r') -> skip;
 
-NUMERO   : 'numero';
+DECIMAL   : 'decimal';
 
 BOOLEANO : 'booleano';
 

@@ -18,6 +18,7 @@ package br.edu.cefsa.compiler.parser;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandArrayInit;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandFunction;
     import br.edu.cefsa.compiler.abstractsyntaxtree.CommandReturn;
+    import br.edu.cefsa.compiler.abstractsyntaxtree.CommandCallFunction;
     import java.util.ArrayList;
     import java.util.Stack;
 
@@ -285,6 +286,18 @@ public class EasyLanguageBaseListener implements EasyLanguageListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitListaArgumentos(EasyLanguageParser.ListaArgumentosContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncCall(EasyLanguageParser.FuncCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncCall(EasyLanguageParser.FuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

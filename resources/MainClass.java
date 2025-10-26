@@ -1,81 +1,83 @@
 import java.util.Scanner;
 public class MainClass {
-public static double dobrar(double valor) {
+public static double media(double a, double b, double c) {
     double resultado;
-    resultado = valor * 2;
+    resultado = (a + b + c) / 3;
     return resultado;
 }
 
 
-public static String saudacao(String pessoa, double abs) {
-    String mensagem;
-    mensagem = "Olá, " + pessoa + "!";
-    return mensagem;
+public static double multiplicar(double x, double y) {
+    double resultado;
+    resultado = x * y;
+    return resultado;
 }
 
 
-public static void teste(String acsa) {
-    String a;
-    a = "a";
+public static String mensagemFinal(double valor) {
+    String msg;
+    msg = "Média final: " + valor;
+    return msg;
+}
+
+
+public static void exibirMensagem(String txt) {
+    	System.out.println(txt);
+
 }
 
 
 	public static void main(String args[]) {
 	Scanner _key = new Scanner(System.in);
 
-	int a;
+	String msg;
 
-	String[] meuvetor = new String[2];
+	double n1;
 
-	boolean flag;
+	double n2;
 
-	double soma;
+	double produto;
 
-	char v;
+	double n3;
 
-	double i;
+	boolean aprovado;
 
 	String nome;
-a = 2;
-v = 'c';
+
+	double med;
+	System.out.println("Digite o nome do aluno:");
+
 	nome = _key.nextLine();
-soma = 0;
-flag = true;
-	meuvetor[1] = "A";
+n1 = 7;
+n2 = 8;
+n3 = 9;
+med = media(n1, n2, n3);
+produto = multiplicar(med, 2);
 
-	for ( i = 1 ; i <= 10 ; i += 2) 
+	if (med>=7) 
 	{
-
-		System.out.println("Valor de i: ");
-
-		System.out.println(i);
-
-		System.out.println(" Dobrado: ");
-
-	}
-
-
-	if (soma<100 && !flag==true) 
-	{
-		System.out.println("Soma ainda menor que 100");
-		System.out.println(soma);
-
+	aprovado = true;
 	}
 
 	else 
 	{
 
-		System.out.println(0);
-
+	aprovado = false;
 	}
 
 
-	while (soma<100 || flag==false) 
+	if (aprovado==true) 
 	{
-	soma = soma + 10;
+	msg = mensagemFinal(produto);	exibirMensagem("Aluno " + nome + " aprovado!");	exibirMensagem(msg);
 	}
 
-	System.out.println("Fim do programa!");
+	else 
+	{
+
+	exibirMensagem("Aluno " + nome + " reprovado!");
+	}
+
+	System.out.println("Fim da execução");
 
     _key.close();
     }

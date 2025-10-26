@@ -17,7 +17,7 @@ public String generateJavaCode() {
     String inputCode;
 
     switch (var.getType()) {
-        case NUMBER:
+        case DECIMAL:
         case INTEGER:
             inputCode = "_key.nextDouble();";
             break;
