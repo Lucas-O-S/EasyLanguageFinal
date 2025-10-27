@@ -9,6 +9,11 @@ funcao decimal multiplicar(decimal x, decimal y) {
     resultado = x * y;
     retorne resultado;
 }
+///Comentario
+
+/*
+Bloco de Comentario
+*/
 
 funcao texto mensagemFinal(decimal valor) {
     texto msg;

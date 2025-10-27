@@ -127,7 +127,7 @@ declareItem returns [String exprText]
 
            
 tipo
-    : DECIMAL   { _tipo = Variable.Type.NUMBER; }
+    : DECIMAL   { _tipo = Variable.Type.DECIMAL; }
     | TEXTO    { _tipo = Variable.Type.TEXT; }
     | BOOLEANO { _tipo = Variable.Type.BOOLEAN; }
     | INTEIRO  { _tipo = Variable.Type.INTEGER; }
@@ -455,6 +455,15 @@ termo returns [String text]
     | AP e=expr FP { $text = "(" + $e.text + ")"; }
     ;
 
+LINE_COMMENT
+: '//' ~[\r\n]* -> skip
+;
+
+// Comentário de múltiplas linhas
+BLOCK_COMMENT
+    : '/*' .*? '*/' -> skip
+    ;
+
 
 AP : '(';
 
@@ -484,7 +493,7 @@ INTEGER : [0-9]+;
 
 STRING : '"' (~["\\] | '\\' .)* '"';
 
-WS : (' ' | '\t' | '\n' | '\r') -> skip;
+WS : (' ' | '\t' | '\n' | '\r' | LINE_COMMENT | BLOCK_COMMENT) -> skip;
 
 DECIMAL   : 'decimal';
 
