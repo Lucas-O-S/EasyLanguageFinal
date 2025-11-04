@@ -10,7 +10,7 @@ Versão Final | Compilador EasyLanguage
 
 1. [Introdução Técnica](#-introdução-técnica)
 2. [Léxico e Tokens](#-léxico-e-tokens)
-3. [Gramática Formal (EBNF)](#-gramática-formal-ebnf)
+3. [Gramática Formal (EBNF)](#%EF%B8%8F-gramática-formal-ebnf)
 4. [Regras Semânticas](#-regras-semânticas)
 5. [Estrutura de Compilação (ANTLR)](#-estrutura-de-compilação-antlr)
 6. [Exemplos de Programas .easy](#-exemplos-de-programas-easy)
