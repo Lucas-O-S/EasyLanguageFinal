@@ -9,13 +9,13 @@ Versão Final | Compilador EasyLanguage
 ## 📋 Índice
 
 1. [Introdução Técnica](#-introdução-técnica)
-2. [Léxico e Tokens](#-lexico-e-tokens)
-3. [Gramática Formal (EBNF)](#-gramatica-formal-ebnf)
-4. [Regras Semânticas](#-regras-semanticas)
-5. [Estrutura de Compilação (ANTLR)](#-estrutura-de-compilacao-antlr)
+2. [Léxico e Tokens](#-léxico-e-tokens)
+3. [Gramática Formal (EBNF)](#-gramática-formal-ebnf)
+4. [Regras Semânticas](#-regras-semânticas)
+5. [Estrutura de Compilação (ANTLR)](#-estrutura-de-compilação-antlr)
 6. [Exemplos de Programas .easy](#-exemplos-de-programas-easy)
 7. [Notas para Desenvolvedores](#-notas-para-desenvolvedores)
-8. [Referências e Créditos Técnicos](#-referencias-e-creditos-tecnicos)
+8. [Referências e Créditos Técnicos](#-referências-e-créditos-técnicos)
 
 ---
 
