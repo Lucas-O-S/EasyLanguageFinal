@@ -35,7 +35,7 @@ A linguagem é analisada por meio de **ANTLR**, que gera o analisador léxico e 
 | -------------------- | --------------------- | ------------------------------ |
 | **ID**               | `[a-z]([a-zA-Z0-9])*` | `nome`, `idade1`, `mediaAluno` |
 | **INTEGER**          | `[0-9]+`              | `42`, `0`, `1234`              |
-| **NUMBER / DECIMAL** | `[0-9]+\.[0-9]+`      | `3.14`, `10.0`                 |
+| **DECIMAL**          | `[0-9]+\.[0-9]+`      | `3.14`, `10.0`                 |
 | **STRING**           | `\".*?\"`             | `"Olá mundo"`                  |
 | **CHAR**             | `'.'`                 | `'A'`, `'b'`                   |
 
