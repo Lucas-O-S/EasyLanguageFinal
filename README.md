@@ -31,13 +31,13 @@ A linguagem é analisada por meio de **ANTLR**, que gera o analisador léxico e 
 
 ### Identificadores e Literais
 
-| Categoria   | Expressão Regular     | Exemplo                        |
-| ----------- | --------------------- | ------------------------------ |
-| **ID**      | `[a-z]([a-zA-Z0-9])*` | `nome`, `idade1`, `mediaAluno` |
-| **INTEGER** | `[0-9]+`              | `42`, `0`, `1234`              |
-| **NUMBER**  | `[0-9]+\.[0-9]+`      | `3.14`, `10.0`                 |
-| **STRING**  | `\".*?\"`             | `"Olá mundo"`                  |
-| **CHAR**    | `'.'`                 | `'A'`, `'b'`                   |
+| Categoria            | Expressão Regular     | Exemplo                        |
+| -------------------- | --------------------- | ------------------------------ |
+| **ID**               | `[a-z]([a-zA-Z0-9])*` | `nome`, `idade1`, `mediaAluno` |
+| **INTEGER**          | `[0-9]+`              | `42`, `0`, `1234`              |
+| **NUMBER / DECIMAL** | `[0-9]+\.[0-9]+`      | `3.14`, `10.0`                 |
+| **STRING**           | `\".*?\"`             | `"Olá mundo"`                  |
+| **CHAR**             | `'.'`                 | `'A'`, `'b'`                   |
 
 ### Palavras-Reservadas
 
@@ -173,7 +173,22 @@ programa {
 fimprog;
 ```
 
-### 3️⃣ Laços e Vetores
+### 3️⃣ Estrutura de Repetição (Enquanto)
+
+```easylanguage
+programa {
+    inteiro contador;
+    contador = 0;
+
+    enquanto (contador < 5) {
+        escreva("Contagem: " + contador);
+        contador = contador + 1;
+    }
+}
+fimprog;
+```
+
+### 4️⃣ Laços e Vetores
 
 ```easylanguage
 programa {
@@ -189,7 +204,7 @@ programa {
 fimprog;
 ```
 
-### 4️⃣ Função com Retorno
+### 5️⃣ Função com Retorno
 
 ```easylanguage
 programa {
@@ -202,6 +217,37 @@ programa {
     inteiro x;
     x = soma(3, 4);
     escreva(x);
+}
+fimprog;
+```
+
+### 6️⃣ Função Sem Retorno (Tipo Vazio)
+
+```easylanguage
+programa {
+    funcao vazio cumprimentar(texto nome) {
+        escreva("Olá, " + nome + "! Seja bem-vindo.");
+    }
+
+    texto nome;
+    escreva("Digite seu nome:");
+    leia(nome);
+    cumprimentar(nome);
+}
+fimprog;
+```
+
+### 7️⃣ Operações com Decimais
+
+```easylanguage
+programa {
+    decimal preco, desconto, precoFinal;
+
+    preco = 100.0;
+    desconto = 0.15;
+    precoFinal = preco - (preco * desconto);
+
+    escreva("Preço final: R$" + precoFinal);
 }
 fimprog;
 ```
