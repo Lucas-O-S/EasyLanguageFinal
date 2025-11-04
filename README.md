@@ -13,7 +13,7 @@ Versão Final | Compilador EasyLanguage
 3. [Gramática Formal (EBNF)](#%EF%B8%8F-gramática-formal-ebnf)
 4. [Regras Semânticas](#-regras-semânticas)
 5. [Estrutura de Compilação (ANTLR)](#%EF%B8%8F-estrutura-de-compilação-antlr)
-6. [Exemplos de Programas '.easy'](#-exemplos-de-programas-easy)
+6. [Exemplos de Programas `.easy`](#-exemplos-de-programas-easy)
 7. [Notas para Desenvolvedores](#-notas-para-desenvolvedores)
 8. [Referências e Créditos Técnicos](#-referências-e-créditos-técnicos)
 
