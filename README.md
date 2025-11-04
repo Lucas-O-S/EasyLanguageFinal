@@ -8,7 +8,7 @@ Versão Final | Compilador EasyLanguage
 
 ## 📋 Índice
 
-1. [Introdução Técnica](#introducao-tecnica)
+1. [Introdução Técnica](#-introdução-técnica)
 2. [Léxico e Tokens](#lexico-e-tokens)
 3. [Gramática Formal (EBNF)](#gramatica-formal-ebnf)
 4. [Regras Semânticas](#regras-semanticas)
